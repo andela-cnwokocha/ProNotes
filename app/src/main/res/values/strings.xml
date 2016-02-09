@@ -5,4 +5,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="navTrash">Trash</string>
+    <string name="syncOnline">Sync online</string>
+    <string name="Settings">Settings</string>
+    <string name="communication">Communicate</string>
+    <string name="Home">Home</string>
+    <string name="reminder">Reminder</string>
+    <string name="note_books">Notebooks</string>
+    <string name="Ccollections">Collections</string>
+    <string name="share">Share</string>
+    <string name="pronote">Pronote</string>
 </resources>
