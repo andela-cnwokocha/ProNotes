@@ -32,7 +32,7 @@
             android:maxLength="50"
             android:inputType="textCapSentences"
             android:hint="Tag"
-            />
+            android:id="@+id/create_note_tag"/>
     </LinearLayout>
 
     <EditText
