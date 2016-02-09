@@ -27,13 +27,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:onClick="newNoteAction">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/button1"
                         android:background="@drawable/board"
-                        android:text="New Note"
+                        android:text="@string/new_note"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="18sp"
                         android:gravity="center|bottom"
@@ -49,13 +51,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:onClick="actionReminder">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/button2"
                         android:background="@drawable/board"
-                        android:text="Reminder"
+                        android:text="@string/nav_reminder"
                         android:textSize="18sp"
                         android:textColor="@color/textColorPrimary"
                         android:gravity="center|bottom"
@@ -78,7 +82,9 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:onClick="actionViewCollections">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -99,16 +105,18 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:onClick="actionViewNotes">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/button4"
                         android:background="@drawable/board"
-                        android:text="All Notes"
+                        android:text="@string/view_notes"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="18sp"
                         android:gravity="center|bottom"
-                        android:textColor="@color/textColorPrimary"
                         android:padding="10dp"
                         android:layout_margin="7dp"/>
                     <ImageView

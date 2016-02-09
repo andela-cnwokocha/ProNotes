@@ -88,4 +88,15 @@ public class HomeDashboardActivity extends AppCompatActivity
     return true;
   }
 
+  public void newNoteAction(View view) {
+  }
+
+  public void actionReminder(View view) {
+  }
+
+  public void actionViewCollections(View view) {
+  }
+
+  public void actionViewNotes(View view) {
+  }
 }
