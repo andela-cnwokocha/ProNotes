@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.andela.pronotes.activities.CreateNewNote">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Notebook Name"
+            android:maxLength="50"
+            android:inputType="textCapSentences"
+            android:id="@+id/create_note_notebook"
+            android:layout_marginRight="30dp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:maxLength="50"
+            android:inputType="textCapSentences"
+            android:hint="Tag"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note Title"
+        android:id="@+id/note_title"/>
+
+    <com.example.andela.pronotes.utils.LinedEditTextView
+        android:id="@+id/createnotebook_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:capitalize="sentences"
+        android:gravity="top"
+        android:hint="Write"
+        android:inputType="textCapSentences|textMultiLine"
+        android:scrollbars="vertical"
+        android:textSize="24dp"/>
+
+</LinearLayout>

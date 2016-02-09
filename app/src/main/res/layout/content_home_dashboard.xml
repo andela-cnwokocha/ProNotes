@@ -18,7 +18,6 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="320dp">
-
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
@@ -31,20 +30,25 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/button1"
+                        android:id="@+id/createNote"
                         android:background="@drawable/board"
-                        android:text="New Note"
+                        android:text="@string/new_note"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="18sp"
                         android:gravity="center|bottom"
                         android:singleLine="false"
                         android:padding="10dp"
-                        android:layout_margin="7dp"/>
+                        android:layout_margin="7dp"
+                        android:clickable="true"
+                        android:onClick="newNoteAction"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
                         android:src="@drawable/nav_note_books"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:onClick="newNoteAction"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -55,18 +59,22 @@
                         android:layout_height="match_parent"
                         android:id="@+id/button2"
                         android:background="@drawable/board"
-                        android:text="Reminder"
+                        android:text="@string/nav_reminder"
                         android:textSize="18sp"
                         android:textColor="@color/textColorPrimary"
                         android:gravity="center|bottom"
                         android:singleLine="false"
                         android:padding="10dp"
-                        android:layout_margin="7dp"/>
+                        android:layout_margin="7dp"
+                        android:clickable="true"
+                        android:onClick="actionReminder"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/nav_reminder"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:onClick="actionReminder"/>
                 </RelativeLayout>
             </TableRow>
 
@@ -78,7 +86,9 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:onClick="actionViewCollections">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -99,23 +109,29 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:onClick="actionViewNotes">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/button4"
                         android:background="@drawable/board"
-                        android:text="All Notes"
+                        android:text="@string/view_notes"
+
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="18sp"
                         android:gravity="center|bottom"
-                        android:textColor="@color/textColorPrimary"
+                        android:clickable="true"
+                        android:onClick="actionViewNotes"
                         android:padding="10dp"
                         android:layout_margin="7dp"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/nav_note_books"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:onClick="actionViewNotes"/>
                 </RelativeLayout>
             </TableRow>
         </TableLayout>
