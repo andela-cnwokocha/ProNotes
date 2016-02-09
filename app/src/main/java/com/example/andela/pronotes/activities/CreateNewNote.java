@@ -1,5 +1,6 @@
 package com.example.andela.pronotes.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,5 +13,11 @@ public class CreateNewNote extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_create_new_note);
     setTitle("New Note");
+  }
+
+  @Override
+  public void onBackPressed() {
+    Intent allNotes = new Intent(this, AllNotesActivity.class);
+    startActivity(allNotes);
   }
 }
