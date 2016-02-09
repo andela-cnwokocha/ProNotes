@@ -18,6 +18,23 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.CreateNewNote">
+        </activity>
+        <activity android:name=".activities.ReminderActivity">
+        </activity>
+        <activity android:name=".activities.AllNotesActivity">
+        </activity>
+        <activity android:name=".activities.NoteBooksActivity">
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity
+            android:name=".activities.TrashActivity"
+            android:label="@string/title_activity_trash"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
