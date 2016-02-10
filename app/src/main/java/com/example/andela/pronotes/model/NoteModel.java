@@ -1,24 +1,23 @@
 package com.example.andela.pronotes.model;
 
+import android.database.Cursor;
+
+import com.activeandroid.Cache;
+import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by andela on 2/9/16.
  */
 
-@Table(name = "Notes")
-public class NoteModel {
-
- /* @Column(name = "note_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-  public long note_id;*/
+@Table(name = "NoteModel")
+public class NoteModel extends Model {
 
   @Column(name = "Note_book_titles")
-  public String book_title;
+  public String note_title;
 
   @Column(name = "Note_Books_categories")
   public String noteBook;
@@ -41,11 +40,25 @@ public class NoteModel {
 
   public NoteModel(String note_title, String noteBook_category, String logNote_time, String note_tag, int trashId, String note_text) {
     super();
-    this.book_title = note_title;
-    //this.note_id = note_id;
+    this.note_title = note_title;
     this.noteBook = noteBook_category;
     this.currentTime = logNote_time;
     this.trashId = trashId;
     this.note_text = note_text;
+    this.tag = note_tag;
   }
+
+  public static Cursor fetchResults() {
+    String tablename = Cache.getTableInfo(NoteModel.class).getTableName();
+    String results = new Select(tablename + " .*, " + tablename + " .Id as _id").from(NoteModel.class).toSql();
+    Cursor resultCursor = Cache.openDatabase().rawQuery(results,null);
+    return resultCursor;
+  }
+  public String getTitle() {
+    return this.note_title;
+  }
+  public String getDate() {
+    return this.currentTime;
+  }
+
 }
