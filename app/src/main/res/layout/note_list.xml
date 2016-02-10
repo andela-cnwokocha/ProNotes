@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-bold"
+        android:textSize="27sp"
+        android:id="@+id/listTitle"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-seriflight"
+        android:textStyle="italic"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="24sp"
+        android:id="@+id/listDate"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-seriflight"
+        android:textStyle="normal"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="20sp"
+        android:id="@+id/listSomeMessage"/>
+</LinearLayout>

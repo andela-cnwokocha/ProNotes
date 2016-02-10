@@ -80,7 +80,8 @@ public class HomeDashboardActivity extends AppCompatActivity
     int id = item.getItemId();
 
     if (id == R.id.nav_home) {
-
+      Intent reminderIntent = new Intent(this, HomeDashboardActivity.class);
+      startActivity(reminderIntent);
     } else if (id == R.id.nav_reminder) {
       Intent reminderIntent = new Intent(this, ReminderActivity.class);
       startActivity(reminderIntent);
@@ -121,6 +122,7 @@ public class HomeDashboardActivity extends AppCompatActivity
   }
 
   public void actionViewNotes(View view) {
-    // action performed when view all notes is clicked
+    Intent listAllIntent = new Intent(this, AllNotesActivity.class);
+    startActivity(listAllIntent);
   }
 }
