@@ -1,7 +1,9 @@
 package com.example.andela.pronotes.model;
 
 import android.database.Cursor;
+import android.util.Log;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -48,17 +50,10 @@ public class NoteModel extends Model {
     this.tag = note_tag;
   }
 
-  public static Cursor fetchResults() {
-    String tablename = Cache.getTableInfo(NoteModel.class).getTableName();
-    String results = new Select(tablename + " .*, " + tablename + " .Id as _id").from(NoteModel.class).toSql();
-    Cursor resultCursor = Cache.openDatabase().rawQuery(results,null);
-    return resultCursor;
-  }
-  public String getTitle() {
-    return this.note_title;
-  }
-  public String getDate() {
-    return this.currentTime;
-  }
+ public static Cursor fetchResults(int id) {
+   String tablename = Cache.getTableInfo(NoteModel.class).getTableName();
+   String query = new Select(tablename + " .*, " + tablename + " .Id as _id").from(NoteModel.class).where("Trash = "+ id).toSql();
+   return Cache.openDatabase().rawQuery(query,null);
+ }
 
 }

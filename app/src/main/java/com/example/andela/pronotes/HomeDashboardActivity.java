@@ -24,6 +24,7 @@ import com.example.andela.pronotes.activities.NoteBooksActivity;
 import com.example.andela.pronotes.activities.ReminderActivity;
 import com.example.andela.pronotes.activities.SettingsActivity;
 import com.example.andela.pronotes.activities.TrashActivity;
+import com.example.andela.pronotes.activities.TrashListActiviy;
 import com.example.andela.pronotes.fragments.HomeDashboardFragement;
 
 public class HomeDashboardActivity extends AppCompatActivity
@@ -99,7 +100,7 @@ public class HomeDashboardActivity extends AppCompatActivity
     } else if (id == R.id.nav_sync) {
 
     } else if (id == R.id.nav_trash) {
-      Intent trashIntent = new Intent(this, TrashActivity.class);
+      Intent trashIntent = new Intent(this, TrashListActiviy.class);
       startActivity(trashIntent);
     }
 
