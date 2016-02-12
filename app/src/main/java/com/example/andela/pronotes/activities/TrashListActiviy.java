@@ -51,8 +51,7 @@ public class TrashListActiviy extends AppCompatActivity {
           @Override
           public boolean onItemLongClick(AdapterView<?> adapter, View item, int position, long id) {
             NoteModel trash = NoteModel.load(NoteModel.class, id);
-            trash.trashId = 1;
-            trash.save();
+            trash.delete();
             cursor.requery();
             trashAdapter.notifyDataSetChanged();
             return true;
@@ -72,7 +71,7 @@ public class TrashListActiviy extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.action_trash:
         NoteModel.deleteRecords(16);
-        Toast.makeText("It ")
+        Toast.makeText(this, "It is clicked", Toast.LENGTH_LONG).show();
         return true;
       default:
         return super.onOptionsItemSelected(item);
