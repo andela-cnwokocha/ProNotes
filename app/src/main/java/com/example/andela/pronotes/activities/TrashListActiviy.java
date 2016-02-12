@@ -37,7 +37,7 @@ public class TrashListActiviy extends AppCompatActivity {
 
 
     listview = (ListView) findViewById(R.id.trash_list);
-    cursor = NoteModel.fetchResults(16);
+    cursor = NoteModel.fetchResults(1);
 
     trashAdapter = new TrashAdapter(this, cursor);
     listview.setAdapter(trashAdapter);
@@ -70,7 +70,9 @@ public class TrashListActiviy extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_trash:
-        NoteModel.deleteRecords(16);
+        NoteModel.deleteRecords(1);
+        cursor.requery();
+        trashAdapter.notifyDataSetChanged();
         Toast.makeText(this, "It is clicked", Toast.LENGTH_LONG).show();
         return true;
       default:

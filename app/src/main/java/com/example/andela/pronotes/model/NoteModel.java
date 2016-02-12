@@ -58,9 +58,7 @@ public class NoteModel extends Model {
  }
 
   public static void deleteRecords(int id) {
-    //String tablename = Cache.getTableInfo(NoteModel.class).getTableName();
-    String query = new Delete().from(NoteModel.class).where("Trash = "+ id).toSql();
-    Cache.openDatabase().rawQuery(query,null);
+    new Delete().from(NoteModel.class).where("Trash = " + id).execute();
   }
 
 }
