@@ -37,8 +37,9 @@ public class CreateNewNote extends AppCompatActivity {
   @Override
   public void onBackPressed() {
     Intent allNotes = new Intent(this, AllNotesActivity.class);
-    startActivity(allNotes);
     saveNoteToDb();
+    resetVariables();
+    startActivity(allNotes);
   }
 
   public void initialize() {
@@ -52,16 +53,12 @@ public class CreateNewNote extends AppCompatActivity {
     setNoteDetails();
     NoteModel noteModel = new NoteModel();
     noteModel.currentTime = getLogTime();
-    Log.i("Tag", noteModel.currentTime);
     noteModel.note_text = noteText;
-    Log.i("Tag", noteModel.note_text);
     noteModel.trashId = 0;
-    Log.i("Tag", String.valueOf(noteModel.trashId));
     noteModel.note_title = title;
-    Log.i("Tag", noteModel.note_title);
     noteModel.tag = tagnameString;
-    Log.i("Tag", noteModel.tag);
-    Toast.makeText(this,noteModel.save().toString(),Toast.LENGTH_SHORT).show();
+    noteModel.save();
+    Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
   }
 
   private void setNoteDetails() {
@@ -76,5 +73,11 @@ public class CreateNewNote extends AppCompatActivity {
     Locale myLocale = new Locale("en");
     String myDate = DateFormat.getDateInstance(DateFormat.DEFAULT, myLocale).format(currentTime);
     return myDate;
+  }
+  private void resetVariables() {
+    tagname.setText("");
+    notebookCategory.setText("");
+    noteTitle.setText("");
+    note.setText("");
   }
 }
