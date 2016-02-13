@@ -1,50 +1,40 @@
 package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
+import android.os.Bundle;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.adapter.AllNotesAdapter;
-import com.example.andela.pronotes.model.NoteModel;
-//
 
-public class AllNotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-  private Cursor notesCursor;
-  private AllNotesAdapter allNotesAdapter;
-  private ListView listview;
+public class HomeDashboardActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_all_notes);
-    setTitle("All Notes");
+    setContentView(R.layout.activity_home_dashboard);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
     toggle.syncState();
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    this.listview = (ListView) findViewById(R.id.listData);
-    notesCursor = NoteModel.fetchResults(0);
 
-    allNotesAdapter = new AllNotesAdapter(this, notesCursor);
-    listview.setAdapter(allNotesAdapter);
-
-    moveToTrash();
   }
 
   @Override
@@ -55,6 +45,21 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     } else {
       super.onBackPressed();
     }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.home_dashboard, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.action_settings) {
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
@@ -90,19 +95,22 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     drawer.closeDrawer(GravityCompat.START);
     return true;
   }
-  private void moveToTrash() {
-    listview.setOnItemLongClickListener(
-        new AdapterView.OnItemLongClickListener() {
-          @Override
-          public boolean onItemLongClick(AdapterView<?> adapter, View item, int position, long id) {
-            NoteModel trash = NoteModel.load(NoteModel.class, id);
-            trash.trashId = 1;
-            trash.save();
-            notesCursor.requery();
-            allNotesAdapter.notifyDataSetChanged();
-            return true;
-          }
-        }
-    );
+
+  public void newNoteAction(View view) {
+    Intent createNewNoteIntent = new Intent(this, CreateNewNote.class);
+    startActivity(createNewNoteIntent);
+  }
+
+  public void actionReminder(View view) {
+    //action performed when remonder button is clicked
+  }
+
+  public void actionViewCollections(View view) {
+    ///action performed when view collections button is clicked
+  }
+
+  public void actionViewNotes(View view) {
+    Intent listAllIntent = new Intent(this, AllNotesActivity.class);
+    startActivity(listAllIntent);
   }
 }

@@ -8,6 +8,7 @@ import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 
@@ -50,10 +51,13 @@ public class NoteModel extends Model {
     this.tag = note_tag;
   }
 
- public static Cursor fetchResults(int id) {
+  public static Cursor fetchResults(int id) {
    String tablename = Cache.getTableInfo(NoteModel.class).getTableName();
    String query = new Select(tablename + " .*, " + tablename + " .Id as _id").from(NoteModel.class).where("Trash = "+ id).toSql();
    return Cache.openDatabase().rawQuery(query,null);
- }
+  }
 
+  public static void deleteRecords(int id) {
+    new Delete().from(NoteModel.class).where("Trash = " + id).execute();
+  }
 }

@@ -9,7 +9,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="AA_DB_NAME"
             android:value="RestClient.db"/>
@@ -18,7 +17,7 @@
             android:value="1"/>
 
         <activity
-            android:name=".HomeDashboardActivity"
+            android:name=".activities.HomeDashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -43,6 +42,8 @@
             android:name=".activities.TrashActivity"
             android:label="@string/title_activity_trash"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".activities.TrashListActiviy">
         </activity>
     </application>
 
