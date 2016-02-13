@@ -50,6 +50,12 @@ public class TrashListActiviy extends AppCompatActivity {
   }
 
   @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.trash_list_menu, menu);
+    return true;
+  }
+
+  @Override
   public void onBackPressed() {
     Intent homeIntent = new Intent(this, HomeDashboardActivity.class);
     startActivity(homeIntent);
@@ -58,22 +64,14 @@ public class TrashListActiviy extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-
       case R.id.action_trash:
         showDialog();
         cursor.requery();
         trashAdapter.notifyDataSetChanged();
         return true;
-
       default:
         return super.onOptionsItemSelected(item);
     }
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.trash_list_menu, menu);
-    return true;
   }
 
   private void showDialog() {
@@ -81,31 +79,6 @@ public class TrashListActiviy extends AppCompatActivity {
     TrashDialog trashDialog = TrashDialog.newInstance("Ebele");
     trashDialog.show(fm, "Ob my zsh");
   }
-
-  /*listview.setO (new OnItemLongClickListener() {
-      builder.setTitle("Action:");
-      builder.setItems(items, new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int item) {
-          cart = cartList.get(position);
-          db.removeProductFromCart(context, cart);
-          new AlertDialog.Builder(context)
-              .setTitle(getString(R.string.success))
-              .setMessage(getString(R.string.item_removed))
-              .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                  Intent intent = new Intent(CartDetailsActivity.this, HomeScreen.class);
-                  startActivity(intent);
-                }
-              })
-              .show();
-        }
-      });
-      AlertDialog alert = builder.create();
-      alert.show();
-      //do your stuff here
-      return false;
-    }
-  });*/
 
   private void emptyTrashRecords() {
     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,19 +90,17 @@ public class TrashListActiviy extends AppCompatActivity {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             NoteModel noteModel = NoteModel.load(NoteModel.class, id);
-            Log.i("Dial_1", String.valueOf(noteModel.trashId));
             noteModel.trashId = 0;
             noteModel.save();
-            cursor.requery();
-            trashAdapter.notifyDataSetChanged();
-            Log.i("Dial_2", String.valueOf(noteModel.trashId));
-            Log.i("bma", "Restoreitem");
+            updateView();
           }
         });
         builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            Log.i("bma", "Deleteitem");
+            NoteModel noteModel = NoteModel.load(NoteModel.class, id);
+            noteModel.delete();
+            updateView();
           }
         });
         builder.create();
@@ -137,59 +108,10 @@ public class TrashListActiviy extends AppCompatActivity {
       }
     });
   }
-  /*@Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-    super.onCreateContextMenu(menu, v, menuInfo);
-    if (v.getId()==R.id.trash_list) {
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.listitem_trash_menu, menu);
-      Log.i("Tag", "Restore and forget");
-    }
-  }*/
 
- /* @Override
-  public boolean onContextItemSelected(MenuItem item) {
-    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-    switch(item.getItemId()) {
-      case R.id.restore:
-        Log.i("Tag_restore", "Restore");
-        return true;
-      case R.id.forget:
-        Log.i("Tag_forget", "Forget");
-        return true;
-      default:
-        return super.onContextItemSelected(item);
-    }
-  }*/
+  private void updateView() {
+    cursor.requery();
+    trashAdapter.notifyDataSetChanged();
+  }
 
- /* @Override
-  public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-    Log.i("Trrr", "Restorare");
-    PopupMenu menud = new PopupMenu(this, view);
-    Log.i("Trrr", "Restorare");
-    menud.getMenuInflater().inflate(R.menu.listitem_trash_menu, menud.getMenu());
-
-    menud.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-      @Override
-      public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
-          case R.id.restore:
-            //NoteModel noteModel = NoteModel.load(NoteModel.class, id);
-            //noteModel.trashId = 0;
-            //cursor.requery();
-            //trashAdapter.notifyDataSetChanged();
-            Log.i("Trrr_restore", "Restoreitem");
-            return true;
-          case R.id.forget:
-            //NoteModel noteModel1 = NoteModel.load(NoteModel.class, id);
-            //noteModel1.delete();
-            //cursor.requery();
-            //trashAdapter.notifyDataSetChanged();
-            Log.i("Trrr_forget", "Forgetitem");
-            return true;
-        }
-        return true;
-      }
-    });
-  }*/
 }
