@@ -174,4 +174,7 @@
     <string name="trash_question">Select an action</string>
     <string name="dialog_delete_single">Delete Note</string>
     <string name="dialog_restore_single">Restore Note</string>
+    <string name="edit_note">Edit note</string>
+    <string name="share_note">Share note</string>
+    <string name="Trash">Trash</string>
 </resources>
