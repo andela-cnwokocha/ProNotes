@@ -135,11 +135,11 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
       switch (item.getItemId()) {
         case R.id.edit:
-          Log.i("action","Edit Action");
+
           mode.finish();
           return true;
         case R.id.share:
-          Log.i("action", "Share Action");
+
           mode.finish();
           return true;
         case R.id.trash_note:
