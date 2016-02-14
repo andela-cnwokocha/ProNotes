@@ -15,7 +15,7 @@ import org.parceler.Parcel;
 
 
 /**
- * Created by andela on 2/9/16.
+ * Created by Chidi on 2/9/16.
  */
 
 @Table(name = "NoteModel")
@@ -44,7 +44,8 @@ public class NoteModel extends Model {
     super();
   }
 
-  public NoteModel(String note_title, String noteBook_category, String logNote_time, String note_tag, int trashId, String note_text) {
+  public NoteModel(String note_title, String noteBook_category, String logNote_time, String note_tag,
+                   int trashId, String note_text) {
     super();
     this.note_title = note_title;
     this.noteBook = noteBook_category;
