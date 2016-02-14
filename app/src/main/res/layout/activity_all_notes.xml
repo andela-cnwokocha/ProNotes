@@ -8,17 +8,18 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/note_recycler_view"
-        android:scrollbars="vertical"
-        android:background="@android:color/transparent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>-->
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/content_panel">
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listData"/>
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listData"/>
+
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

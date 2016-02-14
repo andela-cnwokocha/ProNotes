@@ -3,11 +3,15 @@ package com.example.andela.pronotes.activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +26,8 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   private Cursor notesCursor;
   private AllNotesAdapter allNotesAdapter;
   private ListView listview;
+  private ActionMode actionMode;
+  private long itemId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
+      Intent reminderIntent = new Intent(this, HomeDashboardActivity.class);
+      startActivity(reminderIntent);
       super.onBackPressed();
     }
   }
@@ -95,14 +103,61 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
         new AdapterView.OnItemLongClickListener() {
           @Override
           public boolean onItemLongClick(AdapterView<?> adapter, View item, int position, long id) {
-            NoteModel trash = NoteModel.load(NoteModel.class, id);
-            trash.trashId = 1;
-            trash.save();
-            notesCursor.requery();
-            allNotesAdapter.notifyDataSetChanged();
+            if (actionMode != null) {
+              return true;
+            }
+            Log.i("action", "log_action");
+            itemId = id;
+            actionMode = startActionMode(modeCallBack);
+            item.setSelected(true);
             return true;
           }
         }
     );
   }
+
+  private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+      mode.setTitle("Wallup");
+      mode.getMenuInflater().inflate(R.menu.listitem_trash_menu, menu);
+      return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+      return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+      switch (item.getItemId()) {
+        case R.id.edit:
+          Intent editNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
+          editNoteIntent.putExtra("NoteId", itemId);
+          startActivity(editNoteIntent);
+          mode.finish();
+          return true;
+        case R.id.share:
+
+          mode.finish();
+          return true;
+        case R.id.trash_note:
+          NoteModel trash = NoteModel.load(NoteModel.class, itemId);
+          trash.trashId = 1;
+          trash.save();
+          notesCursor.requery();
+          allNotesAdapter.notifyDataSetChanged();
+        default:
+          return false;
+      }
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+      actionMode = null;
+    }
+  };
+
+
 }

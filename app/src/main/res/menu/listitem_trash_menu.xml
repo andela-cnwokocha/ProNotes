@@ -31,12 +31,15 @@
             android:layout_margin="15dp"
             android:id="@+id/dialog_button_delete"/>
     </LinearLayout>-->
-    <item android:id="@+id/restore"
-          android:icon="@android:drawable/ic_menu_add"
-          android:title="@string/restore_note_menu" />
+    <item android:id="@+id/edit"
+          android:icon="@android:drawable/ic_menu_edit"
+          android:title="@string/edit_note"/>
 
-    <item android:id="@+id/forget"
-          android:icon="@android:drawable/ic_delete"
-          android:title="@string/forget_note_menu" />
+    <item android:id="@+id/share"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="@string/share_note" />
 
+    <item android:id="@+id/trash_note"
+          android:icon="@drawable/ic_action_trash"
+          android:title="@string/Trash"/>
 </menu>
