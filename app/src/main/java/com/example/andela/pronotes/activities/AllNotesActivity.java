@@ -3,6 +3,7 @@ package com.example.andela.pronotes.activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -49,8 +50,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     allNotesAdapter = new AllNotesAdapter(this, notesCursor);
     listview.setAdapter(allNotesAdapter);
 
-
-
     moveToTrash();
   }
 
@@ -60,6 +59,8 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
+      Intent reminderIntent = new Intent(this, HomeDashboardActivity.class);
+      startActivity(reminderIntent);
       super.onBackPressed();
     }
   }
@@ -102,13 +103,10 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
         new AdapterView.OnItemLongClickListener() {
           @Override
           public boolean onItemLongClick(AdapterView<?> adapter, View item, int position, long id) {
-            /*NoteModel trash = NoteModel.load(NoteModel.class, id);
-            trash.trashId = 1;
-            trash.save();
-            notesCursor.requery();
-            allNotesAdapter.notifyDataSetChanged();*/
-            if (actionMode != null) { return true; }
-            Log.i("action","log_action");
+            if (actionMode != null) {
+              return true;
+            }
+            Log.i("action", "log_action");
             itemId = id;
             actionMode = startActionMode(modeCallBack);
             item.setSelected(true);
@@ -135,7 +133,9 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
       switch (item.getItemId()) {
         case R.id.edit:
-
+          Intent editNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
+          editNoteIntent.putExtra("NoteId", itemId);
+          startActivity(editNoteIntent);
           mode.finish();
           return true;
         case R.id.share:
@@ -158,4 +158,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
       actionMode = null;
     }
   };
+
+
 }

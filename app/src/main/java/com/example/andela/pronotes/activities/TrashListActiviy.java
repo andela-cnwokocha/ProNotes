@@ -76,7 +76,7 @@ public class TrashListActiviy extends AppCompatActivity {
 
   private void showDialog() {
     FragmentManager fm = getSupportFragmentManager();
-    TrashDialog trashDialog = TrashDialog.newInstance("Ebele");
+    TrashDialog trashDialog = TrashDialog.newInstance("Empty Trash");
     trashDialog.show(fm, "Ob my zsh");
   }
 

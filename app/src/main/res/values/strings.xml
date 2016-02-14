@@ -20,7 +20,6 @@
     <string name="view_notes">All Notes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello Reminder fragment</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -177,4 +176,8 @@
     <string name="edit_note">Edit note</string>
     <string name="share_note">Share note</string>
     <string name="Trash">Trash</string>
+    <string name="notebookName_hint">Notebook Name</string>
+    <string name="noteBookTag_hint">Tag</string>
+    <string name="noteTitle_hint">Note Title</string>
+    <string name="noteContent_hint">Write</string>
 </resources>
