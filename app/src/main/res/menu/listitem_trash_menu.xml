@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
  <menu
         xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/trash_question"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/dialog_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dialog_restore_single"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorPrimaryLight"
-            android:layout_weight="2"
-            android:layout_margin="15dp"
-            android:id="@+id/dialog_button_restore"/>
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dialog_delete_single"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorPrimaryLight"
-            android:layout_weight="2"
-            android:layout_margin="15dp"
-            android:id="@+id/dialog_button_delete"/>
-    </LinearLayout>-->
     <item android:id="@+id/edit"
           android:icon="@android:drawable/ic_menu_edit"
           android:title="@string/edit_note"/>

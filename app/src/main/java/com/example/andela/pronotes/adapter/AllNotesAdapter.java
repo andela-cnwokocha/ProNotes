@@ -35,10 +35,12 @@ public class AllNotesAdapter extends CursorAdapter {
     TextView date = (TextView) view.findViewById(R.id.listDate);
     TextView brief = (TextView) view.findViewById(R.id.listSomeMessage);
 
-    String bodyTitle = cursor.getString(cursor.getColumnIndexOrThrow("Note_book_titles"));
-    String bookDate = cursor.getString(cursor.getColumnIndexOrThrow("Modified_time"));
-    String bookBrief = cursor.getString(cursor.getColumnIndexOrThrow("Note_text"));
-
+    String bodyTitle = cursor.getString(cursor.getColumnIndexOrThrow("Note_book_titles")).trim();
+    String bookDate = cursor.getString(cursor.getColumnIndexOrThrow("Modified_time")).trim();
+    String bookBrief = cursor.getString(cursor.getColumnIndexOrThrow("Note_text")).trim();
+    if(bookBrief.length() > 60) {
+      bookBrief = bookBrief.substring(0, 60).concat(" ...");
+    }
 
     title.setText(bodyTitle);
     date.setText(bookDate);

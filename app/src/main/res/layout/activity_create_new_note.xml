@@ -20,8 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="Notebook Name"
+            android:hint="@string/notebook_name"
             android:maxLength="50"
+            android:textStyle="bold"
             android:inputType="textCapSentences"
             android:id="@+id/create_note_notebook"
             android:layout_marginRight="30dp"/>
@@ -30,15 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:maxLength="50"
+            android:textStyle="bold"
             android:inputType="textCapSentences"
-            android:hint="Tag"
+            android:hint="@string/note_tag"
             android:id="@+id/create_note_tag"/>
     </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Note Title"
+        android:inputType="textCapSentences"
+        android:hint="@string/note_title"
+        android:textStyle="bold"
         android:id="@+id/note_title"/>
 
     <com.example.andela.pronotes.utils.LinedEditTextView
@@ -48,6 +52,7 @@
         android:capitalize="sentences"
         android:gravity="top"
         android:hint="Write"
+        android:imeActionLabel="@string/save_text"
         android:inputType="textCapSentences|textMultiLine"
         android:scrollbars="vertical"
         android:textSize="24dp"/>

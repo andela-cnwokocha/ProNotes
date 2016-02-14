@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:layout_margin="@dimen/text_margin"
         app:headerLayout="@layout/nav_header_home_dashboard"
         app:menu="@menu/activity_home_dashboard_drawer"/>
 
