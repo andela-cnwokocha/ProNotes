@@ -11,12 +11,15 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
+import org.parceler.Parcel;
+
 
 /**
  * Created by andela on 2/9/16.
  */
 
 @Table(name = "NoteModel")
+@Parcel(analyze={NoteModel.class})
 public class NoteModel extends Model {
 
   @Column(name = "Note_book_titles")

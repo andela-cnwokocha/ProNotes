@@ -20,6 +20,8 @@ import android.widget.ListView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+
+import org.parceler.Parcels;
 //
 
 public class AllNotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +53,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     listview.setAdapter(allNotesAdapter);
 
     moveToTrash();
+    readNote();
   }
 
   @Override
@@ -106,7 +109,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
             if (actionMode != null) {
               return true;
             }
-            Log.i("action", "log_action");
             itemId = id;
             actionMode = startActionMode(modeCallBack);
             item.setSelected(true);
@@ -159,5 +161,17 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     }
   };
 
+  private void readNote() {
+    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("NoteRead", String.valueOf(id));
+        NoteModel noteModel = NoteModel.load(NoteModel.class, id);
+        Intent readNoteIntent = new Intent(AllNotesActivity.this, ReadNoteActivity.class);
+        readNoteIntent.putExtra("Note", Parcels.wrap(noteModel));
+        startActivity(readNoteIntent);
+      }
+    });
+  }
 
 }
