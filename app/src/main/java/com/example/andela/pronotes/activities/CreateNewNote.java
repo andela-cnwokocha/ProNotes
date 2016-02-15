@@ -59,6 +59,7 @@ public class CreateNewNote extends AppCompatActivity {
       Intent allNotes = new Intent(this, AllNotesActivity.class);
       saveNoteToDb();
       startActivity(allNotes);
+      autoSaveHandler.removeCallbacks(runAutoSave);
     }
 
   }
@@ -82,9 +83,9 @@ public class CreateNewNote extends AppCompatActivity {
     noteModel.tag = tagnameString;
     noteModel.noteBook = category;
     noteModel.save();
+    noteId = noteModel.getId();
+    Log.i("Actionif", String.valueOf(noteModel.getId()));
     isFromEdit = true;
-    //resetVariables();
-
   }
 
   private void setNoteDetails() {
@@ -111,12 +112,7 @@ public class CreateNewNote extends AppCompatActivity {
     Locale myLocale = new Locale("en");
     return DateFormat.getDateInstance(DateFormat.DEFAULT, myLocale).format(currentTime);
   }
-  private void resetVariables() {
-    tagname.setText("");
-    notebookCategory.setText("");
-    noteTitle.setText("");
-    note.setText("");
-  }
+
   private NoteModel getNote(long noteId) {
     return NoteModel.load(NoteModel.class, noteId);
   }
