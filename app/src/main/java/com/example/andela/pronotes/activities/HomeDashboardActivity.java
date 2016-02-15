@@ -2,6 +2,7 @@ package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,7 +35,8 @@ public class HomeDashboardActivity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-
+    // Initialize sharedpreferences
+    PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
   }
 
   @Override

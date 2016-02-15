@@ -1,7 +1,10 @@
 package com.example.andela.pronotes.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,8 +31,8 @@ public class CreateNewNote extends AppCompatActivity {
   private String noteText;
   private boolean isFromEdit = false;
   private long noteId;
-
-
+  private boolean autoSaveNotebook;
+  private SharedPreferences preferences;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class CreateNewNote extends AppCompatActivity {
       isFromEdit = true;
     }
 
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    autoSaveNotebook = preferences.getBoolean("autosave", false);
+
     setAutoSave();
   }
 
@@ -61,6 +67,12 @@ public class CreateNewNote extends AppCompatActivity {
       startActivity(allNotes);
       autoSaveHandler.removeCallbacks(runAutoSave);
     }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    autoSaveNotebook = preferences.getBoolean("autosave", true);
 
   }
 
@@ -84,7 +96,6 @@ public class CreateNewNote extends AppCompatActivity {
     noteModel.noteBook = category;
     noteModel.save();
     noteId = noteModel.getId();
-    Log.i("Actionif", String.valueOf(noteModel.getId()));
     isFromEdit = true;
   }
 
@@ -124,9 +135,7 @@ public class CreateNewNote extends AppCompatActivity {
     public void run() {
       setNoteDetails();
       saveNoteToDb();
-      Log.i("Auto_run", "Saving now ..");
-      autoSaveHandler.postDelayed(runAutoSave, 1000 * 1000);
-      autoSaveHandler.post(runAutoSave);
+      autoSaveHandler.postDelayed(this, 10000);
     }
   };
 
@@ -135,7 +144,9 @@ public class CreateNewNote extends AppCompatActivity {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
         if(hasFocus) {
-          runAutoSave.run();
+         if(autoSaveNotebook) {
+           runAutoSave.run();
+         }
         }
       }
     });
