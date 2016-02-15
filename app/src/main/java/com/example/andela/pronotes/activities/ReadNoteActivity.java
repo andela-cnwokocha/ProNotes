@@ -72,5 +72,4 @@ public class ReadNoteActivity extends AppCompatActivity {
     }
   }
 
-
 }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.example.andela.pronotes.activities.CreateNewNote;
-import com.example.andela.*;
+import com.example.andela.pronotes.activities.HomeDashboardActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.internal.Shadow;
 import org.robolectric.shadows.ShadowActivity;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;

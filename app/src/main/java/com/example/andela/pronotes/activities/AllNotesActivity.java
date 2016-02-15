@@ -3,13 +3,11 @@ package com.example.andela.pronotes.activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,9 +18,10 @@ import android.widget.ListView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.ViewConstants;
 
 import org.parceler.Parcels;
-//
+
 
 public class AllNotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
   private Cursor notesCursor;
@@ -114,14 +113,13 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
             item.setSelected(true);
             return true;
           }
-        }
-    );
+        });
   }
 
   private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-      mode.setTitle("Wallup");
+      mode.setTitle(ViewConstants.HOME_SCREEN.toString());
       mode.getMenuInflater().inflate(R.menu.listitem_trash_menu, menu);
       return true;
     }
@@ -141,7 +139,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
           mode.finish();
           return true;
         case R.id.share:
-
           mode.finish();
           return true;
         case R.id.trash_note:
@@ -160,6 +157,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     public void onDestroyActionMode(ActionMode mode) {
       actionMode = null;
     }
+
   };
 
   private void readNote() {
