@@ -29,7 +29,7 @@ public class ReadNoteActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_readNote);
+    setContentView(R.layout.activity_readnote);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
@@ -49,7 +49,7 @@ public class ReadNoteActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_readNote, menu);
+    getMenuInflater().inflate(R.menu.menu_readnote, menu);
     MenuItem shareIcon = menu.findItem(R.id.share);
     sharer = (ShareActionProvider) MenuItemCompat.getActionProvider(shareIcon);
     setShareIntent();
@@ -65,5 +65,6 @@ public class ReadNoteActivity extends AppCompatActivity {
       sharer.setShareIntent(shareIntent);
     }
   }
+
 
 }
