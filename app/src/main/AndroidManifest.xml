@@ -35,15 +35,15 @@
         <activity android:name=".activities.NoteBooksActivity">
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity>
-        <activity
             android:name=".activities.ReadNoteActivity"
             android:label="@string/title_activity_trash"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activities.TrashListActiviy">
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings">
         </activity>
     </application>
 

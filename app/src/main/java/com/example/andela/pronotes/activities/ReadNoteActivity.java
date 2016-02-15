@@ -51,8 +51,6 @@ public class ReadNoteActivity extends AppCompatActivity {
         startActivity(editNoteIntent);
       }
     });
-
-
   }
 
   @Override
