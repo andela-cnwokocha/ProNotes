@@ -25,7 +25,6 @@ public class HomeDashboardActivity extends AppCompatActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -35,7 +34,6 @@ public class HomeDashboardActivity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    // Initialize sharedpreferences
     PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
   }
 
@@ -104,15 +102,16 @@ public class HomeDashboardActivity extends AppCompatActivity
   }
 
   public void actionReminder(View view) {
-    //action performed when remonder button is clicked
+
   }
 
   public void actionViewCollections(View view) {
-    ///action performed when view collections button is clicked
+
   }
 
   public void actionViewNotes(View view) {
     Intent listAllIntent = new Intent(this, AllNotesActivity.class);
     startActivity(listAllIntent);
   }
+
 }
