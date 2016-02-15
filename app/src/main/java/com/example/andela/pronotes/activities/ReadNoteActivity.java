@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class ReadNoteActivity extends AppCompatActivity {
   private ShareActionProvider sharer;
   private NoteModel note;
   private TextView contentView;
+  private long noteId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +35,24 @@ public class ReadNoteActivity extends AppCompatActivity {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-
-      }
-    });
-
     note = Parcels.unwrap(getIntent().getParcelableExtra("Note"));
     setTitle(note.note_title);
     contentView = (TextView) findViewById(R.id.note_read);
     contentView.setText(note.note_text);
+    noteId = Parcels.unwrap(getIntent().getParcelableExtra("ID"));
+
+    fab = (FloatingActionButton) findViewById(R.id.fab);
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent editNoteIntent = new Intent(ReadNoteActivity.this, CreateNewNote.class);
+        Log.i("idz", String.valueOf(noteId));
+        editNoteIntent.putExtra("NoteId", noteId);
+        startActivity(editNoteIntent);
+      }
+    });
+
+
   }
 
   @Override

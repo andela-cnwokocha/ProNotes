@@ -1,6 +1,7 @@
 package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class CreateNewNote extends AppCompatActivity {
       this.note.setText(note.note_text);
       isFromEdit = true;
     }
+
+    setAutoSave();
   }
 
   @Override
@@ -79,7 +82,8 @@ public class CreateNewNote extends AppCompatActivity {
     noteModel.tag = tagnameString;
     noteModel.noteBook = category;
     noteModel.save();
-    resetVariables();
+    isFromEdit = true;
+    //resetVariables();
 
   }
 
@@ -117,16 +121,28 @@ public class CreateNewNote extends AppCompatActivity {
     return NoteModel.load(NoteModel.class, noteId);
   }
 
+  Handler autoSaveHandler = new Handler();
+
+  Runnable runAutoSave = new Runnable() {
+    @Override
+    public void run() {
+      setNoteDetails();
+      saveNoteToDb();
+      Log.i("Auto_run", "Saving now ..");
+      autoSaveHandler.postDelayed(runAutoSave, 1000 * 1000);
+      autoSaveHandler.post(runAutoSave);
+    }
+  };
+
   private void setAutoSave() {
     this.note.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
         if(hasFocus) {
-          Log.i("Traz", "This is damn");
+          runAutoSave.run();
         }
       }
     });
-
   }
 
 }

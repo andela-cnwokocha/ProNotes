@@ -150,6 +150,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
           trash.save();
           notesCursor.requery();
           allNotesAdapter.notifyDataSetChanged();
+          mode.finish();
         default:
           return false;
       }
@@ -165,10 +166,10 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("NoteRead", String.valueOf(id));
         NoteModel noteModel = NoteModel.load(NoteModel.class, id);
         Intent readNoteIntent = new Intent(AllNotesActivity.this, ReadNoteActivity.class);
         readNoteIntent.putExtra("Note", Parcels.wrap(noteModel));
+        readNoteIntent.putExtra("ID", Parcels.wrap(id));
         startActivity(readNoteIntent);
       }
     });
