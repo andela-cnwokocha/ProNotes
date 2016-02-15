@@ -1,17 +1,13 @@
 package com.example.andela.pronotes.activities;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
@@ -73,7 +69,6 @@ public class CreateNewNote extends AppCompatActivity {
   public void onResume() {
     super.onResume();
     autoSaveNotebook = preferences.getBoolean("autosave", true);
-
   }
 
   public void initialize() {
