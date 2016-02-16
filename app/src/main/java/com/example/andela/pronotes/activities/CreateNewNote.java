@@ -138,10 +138,8 @@ public class CreateNewNote extends AppCompatActivity {
     this.note.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus) {
-         if(autoSaveNotebook) {
-           runAutoSave.run();
-         }
+        if(hasFocus && autoSaveNotebook) {
+          runAutoSave.run();
         }
       }
     });
