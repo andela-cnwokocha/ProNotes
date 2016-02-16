@@ -8,13 +8,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-bold"
-        android:textSize="27sp"
-        android:id="@+id/listTitle"/>
+        android:textSize="20sp"
+        android:id="@+id/listTitle"
+        android:textStyle="bold"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-seriflight"
         android:textStyle="italic"
         android:textColor="@color/textColorSecondary"
         android:textSize="24sp"
@@ -22,8 +21,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-seriflight"
-        android:textStyle="normal"
         android:textColor="@color/textColorSecondary"
         android:textSize="20sp"
         android:id="@+id/listSomeMessage"/>

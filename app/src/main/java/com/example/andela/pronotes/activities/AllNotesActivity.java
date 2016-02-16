@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
 import com.example.andela.pronotes.utils.ViewConstants;
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
 import org.parceler.Parcels;
 
@@ -29,12 +32,16 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   private ListView listview;
   private ActionMode actionMode;
   private long itemId;
+  private Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_all_notes);
     setTitle("All Notes");
+
+    toolbar = (Toolbar) findViewById(R.id.tool_bar);
+    setSupportActionBar(toolbar);
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,11 +52,14 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    this.listview = (ListView) findViewById(R.id.listData);
+    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
     notesCursor = NoteModel.fetchResults(0);
 
     allNotesAdapter = new AllNotesAdapter(this, notesCursor);
-    listview.setAdapter(allNotesAdapter);
+
+    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
+    animationAdapter.setAbsListView(listview);
+    listview.setAdapter(animationAdapter);
 
     moveToTrash();
     readNote();
@@ -100,6 +110,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     drawer.closeDrawer(GravityCompat.START);
     return true;
   }
+
   private void moveToTrash() {
     listview.setOnItemLongClickListener(
         new AdapterView.OnItemLongClickListener() {
@@ -172,5 +183,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
       }
     });
   }
+
 
 }
