@@ -86,7 +86,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.action_settings) {
-      Intent settingsIntent = new Intent(this, SettingsActivity.class);
+      Intent settingsIntent = new Intent(this, Settings.class);
       startActivity(settingsIntent);
       return true;
     }
