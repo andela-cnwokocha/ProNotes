@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -29,6 +31,8 @@ public class CreateNewNote extends AppCompatActivity {
   private long noteId;
   private boolean autoSaveNotebook;
   private SharedPreferences preferences;
+  private Toolbar toolbar;
+  private int repeatRate = 1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,31 +41,32 @@ public class CreateNewNote extends AppCompatActivity {
     setTitle("New Note");
     initialize();
 
+    toolbar = (Toolbar) findViewById(R.id.tool_bar);
+    setSupportActionBar(toolbar);
+
     Bundle extras = getIntent().getExtras();
-    if (extras != null) {
-      noteId = extras.getLong("NoteId");
-      NoteModel note = getNote(noteId);
-      tagname.setText(note.tag);
-      notebookCategory.setText(note.noteBook);
-      noteTitle.setText(note.note_title);
-      this.note.setText(note.note_text);
-      isFromEdit = true;
-    }
+    noteFromBundle(extras);
 
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);
 
+    if(autoSaveNotebook) {
+      repeatRate = getUpdateRate();
+    }
     setAutoSave();
   }
 
   @Override
   public void onBackPressed() {
-    setNoteDetails();
-    if(!isWrongInputs()) {
-      Intent allNotes = new Intent(this, AllNotesActivity.class);
+    if(isNoteProvided()) {
       saveNoteToDb();
-      startActivity(allNotes);
       autoSaveHandler.removeCallbacks(runAutoSave);
+      Intent allNotes = new Intent(this, AllNotesActivity.class);
+      startActivity(allNotes);
+    } else {
+      autoSaveHandler.removeCallbacks(runAutoSave);
+      Intent allNotes = new Intent(this, AllNotesActivity.class);
+      startActivity(allNotes);
     }
   }
 
@@ -113,6 +118,10 @@ public class CreateNewNote extends AppCompatActivity {
     return outcome;
   }
 
+  private boolean isContentProvided() {
+    return ((noteText.length() > 0) && (category.length() > 0));
+  }
+
   private String getLogTime() {
     Date currentTime = new Date();
     Locale myLocale = new Locale("en");
@@ -128,9 +137,11 @@ public class CreateNewNote extends AppCompatActivity {
   Runnable runAutoSave = new Runnable() {
     @Override
     public void run() {
-      setNoteDetails();
-      saveNoteToDb();
-      autoSaveHandler.postDelayed(this, 10000);
+      if(isNoteProvided()) {
+        saveNoteToDb();
+      }
+      autoSaveHandler.postDelayed(this, 1000 * repeatRate);
+      Log.i("tospi", "Note autosave ?" + repeatRate);
     }
   };
 
@@ -143,6 +154,42 @@ public class CreateNewNote extends AppCompatActivity {
         }
       }
     });
+  }
+  private void noteFromBundle(Bundle extras) {
+    if (extras != null) {
+      noteId = extras.getLong("NoteId");
+      NoteModel note = getNote(noteId);
+      tagname.setText(note.tag);
+      notebookCategory.setText(note.noteBook);
+      noteTitle.setText(note.note_title);
+      this.note.setText(note.note_text);
+      isFromEdit = true;
+
+      if(note.note_title.length() > 0) {
+        setTitle(note.note_title);
+      } else {
+        setTitle("Untitled");
+      }
+    }
+  }
+
+  private boolean isNoteProvided() {
+    setNoteDetails();
+    return (!isWrongInputs() && isContentProvided());
+  }
+
+  protected void onStop() {
+    super.onStop();
+    autoSaveHandler.removeCallbacks(runAutoSave);
+  }
+  protected void onPause() {
+    super.onPause();
+    autoSaveHandler.removeCallbacks(runAutoSave);
+  }
+
+  private int getUpdateRate() {
+    int updaterate = Integer.parseInt(preferences.getString("autosaveRate", ""));
+    return (updaterate > 0 ? updaterate : 1);
   }
 
 }

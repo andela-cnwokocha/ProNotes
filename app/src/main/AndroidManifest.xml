@@ -16,21 +16,13 @@
             android:name="AA_DB_VERSION"
             android:value="1"/>
 
-        <activity
-            android:name=".activities.HomeDashboardActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity android:name=".activities.HomeDashboardActivity">
         </activity>
-        <activity android:name=".activities.CreateNewNote">
+        <activity
+            android:name=".activities.CreateNewNote"
+            android:configChanges="orientation|screenSize">
         </activity>
         <activity android:name=".activities.ReminderActivity">
-        </activity>
-        <activity android:name=".activities.AllNotesActivity">
         </activity>
         <activity android:name=".activities.NoteBooksActivity">
         </activity>
@@ -44,6 +36,21 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings">
+        </activity>
+        <activity
+            android:name=".activities.AllNotesActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 

@@ -4,10 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,31 +17,47 @@ import android.widget.ListView;
 
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.adapter.TrashAdapter;
-import com.example.andela.pronotes.fragments.TrashDialog;
+import com.example.andela.pronotes.adapter.AllNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
 public class TrashListActiviy extends AppCompatActivity {
 
   private ListView listview;
   private Cursor cursor;
-  private TrashAdapter trashAdapter;
+  private AllNotesAdapter trashAdapter;
   private Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_trash_list_activiy);
+    setContentView(R.layout.activity_all_notes);
     setTitle("Trash Notes");
-    toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    fab.setVisibility(View.GONE);
+    toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+    toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
+    getSupportActionBar().setTitle("Pronote");
 
-    listview = (ListView) findViewById(R.id.trash_list);
+    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
     cursor = NoteModel.fetchResults(1);
-    trashAdapter = new TrashAdapter(this, cursor);
-    listview.setAdapter(trashAdapter);
+    trashAdapter = new AllNotesAdapter(this, cursor);
+    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
+    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(trashAdapter);
+    animationAdapter.setAbsListView(listview);
+    listview.setAdapter(animationAdapter);
 
-    emptyTrashRecords();
+    toEmptyTrashRecords();
   }
 
   @Override
@@ -51,7 +68,7 @@ public class TrashListActiviy extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    Intent homeIntent = new Intent(this, HomeDashboardActivity.class);
+    Intent homeIntent = new Intent(this, AllNotesActivity.class);
     startActivity(homeIntent);
   }
 
@@ -59,22 +76,36 @@ public class TrashListActiviy extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_trash:
-        showDialog();
-        cursor.requery();
-        trashAdapter.notifyDataSetChanged();
+        emptyTrash();
         return true;
       default:
         return super.onOptionsItemSelected(item);
     }
   }
 
-  private void showDialog() {
-    FragmentManager fm = getSupportFragmentManager();
-    TrashDialog trashDialog = TrashDialog.newInstance("Empty Trash");
-    trashDialog.show(fm, "Ob my zsh");
+  public void emptyTrash() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(TrashListActiviy.this);
+    builder.setTitle("Empty Trash");
+    builder.setMessage("Are you sure you want to empty trash?");
+    builder.setPositiveButton("Empty", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        NoteModel.deleteRecords(1);
+        dialog.dismiss();
+        updateView();
+      }
+    });
+    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.dismiss();
+      }
+    });
+    builder.create();
+    builder.show();
   }
 
-  private void emptyTrashRecords() {
+  private void toEmptyTrashRecords() {
     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
@@ -106,6 +137,7 @@ public class TrashListActiviy extends AppCompatActivity {
   private void updateView() {
     cursor.requery();
     trashAdapter.notifyDataSetChanged();
+    Log.i("Deleted", "Emptied");
   }
 
 }
