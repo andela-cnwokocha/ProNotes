@@ -10,6 +10,7 @@
           android:title="@string/share_note" />
 
     <item android:id="@+id/trash_note"
-          android:icon="@drawable/ic_action_trash"
+          android:icon="@android:drawable/ic_menu_delete"
           android:title="@string/Trash"/>
+
 </menu>
