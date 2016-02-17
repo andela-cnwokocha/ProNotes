@@ -35,8 +35,20 @@ public class ReadNoteActivity extends AppCompatActivity {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+    toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
+    getSupportActionBar().setTitle("Pronote");
+
+
     note = Parcels.unwrap(getIntent().getParcelableExtra("Note"));
-    setTitle(note.note_title);
     contentView = (TextView) findViewById(R.id.note_read);
     contentView.setText(note.note_text);
     noteId = Parcels.unwrap(getIntent().getParcelableExtra("ID"));

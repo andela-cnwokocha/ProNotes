@@ -1,7 +1,10 @@
 package com.example.andela.pronotes.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,12 +12,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
@@ -33,6 +40,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   private ActionMode actionMode;
   private long itemId;
   private Toolbar toolbar;
+  private Button noNoteButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +50,47 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
+    setUpNavigation();
+    setTitle("Pronote");
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-    drawer.setDrawerListener(toggle);
-    toggle.syncState();
+    PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-    navigationView.setNavigationItemSelectedListener(this);
-
-    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
     notesCursor = NoteModel.fetchResults(0);
+    Log.i("ZIX", String.valueOf(notesCursor.getCount()));
+    noNoteButton = (Button) findViewById(R.id.noNote);
+
+    if(notesCursor.getCount() < 1) {
+      TextView noNoteView = (TextView) findViewById(R.id.noNote_text);
+      noNoteView.setVisibility(View.VISIBLE);
+      noNoteButton.setVisibility(View.VISIBLE);
+    }
 
     allNotesAdapter = new AllNotesAdapter(this, notesCursor);
-
+    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
     AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
     animationAdapter.setAbsListView(listview);
     listview.setAdapter(animationAdapter);
 
     moveToTrash();
     readNote();
+    addNewNote();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.home_dashboard, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.action_settings) {
+      Intent settingsIntent = new Intent(this, SettingsActivity.class);
+      startActivity(settingsIntent);
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   @Override
@@ -120,6 +148,8 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
               return true;
             }
             itemId = id;
+            Log.i("tosp_long_id", String.valueOf(id));
+            Log.i("tosp_long_pos", String.valueOf(position));
             actionMode = startActionMode(modeCallBack);
             item.setSelected(true);
             return true;
@@ -150,6 +180,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
           mode.finish();
           return true;
         case R.id.share:
+          Log.i("tosp_shared", "Shared selected");
           mode.finish();
           return true;
         case R.id.trash_note:
@@ -184,5 +215,26 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     });
   }
 
+  private void setUpNavigation() {
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+    drawer.setDrawerListener(toggle);
+    toggle.syncState();
+
+    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    navigationView.setNavigationItemSelectedListener(this);
+  }
+
+  private void addNewNote() {
+    FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.fab);
+    addButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
+        startActivity(createNoteIntent);
+      }
+    });
+  }
 
 }
