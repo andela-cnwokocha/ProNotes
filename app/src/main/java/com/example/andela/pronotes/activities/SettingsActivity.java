@@ -49,7 +49,7 @@ public class SettingsActivity extends PreferenceFragment implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
       if (key.equals("autosave") || key.equals("autosaveRate")) {
         Preference pref = findPreference(key);
-        pref.setSummary(sharedPreferences.getString(key, "Autosaved this key"));
+        pref.setSummary(sharedPreferences.getString(key, "false"));
       }
     }
   }

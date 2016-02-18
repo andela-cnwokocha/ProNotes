@@ -98,4 +98,6 @@
     <string name="note_tag">Tag</string>
     <string name="notebook_name">Notebook Name</string>
     <string name="note_title">Note Title</string>
+    <string name="noNote_button">Click To Add Notes</string>
+    <string name="noNotetext">No notes added</string>
 </resources>

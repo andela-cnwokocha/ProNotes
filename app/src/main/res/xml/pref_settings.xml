@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android" >
+        <PreferenceCategory
+            android:title="Autosave note">
 
-    <CheckBoxPreference
-        android:key="autosave"
-        android:title="Enable Autosave"
-        android:summary="Save notes automatically while typing"
-        android:defaultValue="false"/>
+            <CheckBoxPreference
+                android:key="autosave"
+                android:title="Enable Autosave"
+                android:summary="Save notes automatically while typing"
+                android:defaultValue="false"/>
+
+            <EditTextPreference
+                android:key="autosaveRate"
+                android:dependency="autosave"
+                android:layout="?android:attr/preferenceLayoutChild"
+                android:title="Enter seconds"
+                android:summary="Rate at which notes are autosaved"
+                android:inputType="number"
+                android:defaultValue="5"
+                android:dialogTitle="Enter the rate (in seconds) to autosave notes" />
+        </PreferenceCategory>
 
 </PreferenceScreen>

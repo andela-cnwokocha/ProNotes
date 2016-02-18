@@ -1,6 +1,5 @@
 package com.example.andela.pronotes.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
@@ -21,7 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
@@ -33,7 +32,9 @@ import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import org.parceler.Parcels;
 
 
-public class AllNotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AllNotesActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
+
   private Cursor notesCursor;
   private AllNotesAdapter allNotesAdapter;
   private ListView listview;
@@ -46,7 +47,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_all_notes);
-    setTitle("All Notes");
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
@@ -56,7 +56,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
 
     notesCursor = NoteModel.fetchResults(0);
-    Log.i("ZIX", String.valueOf(notesCursor.getCount()));
     noNoteButton = (Button) findViewById(R.id.noNote);
 
     if(notesCursor.getCount() < 1) {
