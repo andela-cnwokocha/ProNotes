@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:capitalize="sentences"
             android:gravity="top"
-            android:hint="Write"
+            android:hint="@string/note_content"
             android:imeActionLabel="@string/save_text"
             android:inputType="textCapSentences|textMultiLine"
             android:scrollbars="vertical"

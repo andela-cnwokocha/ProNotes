@@ -33,9 +33,10 @@ public class TrashListActiviy extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_all_notes);
-    setTitle("Trash Notes");
+
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setVisibility(View.GONE);
+
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,7 +138,6 @@ public class TrashListActiviy extends AppCompatActivity {
   private void updateView() {
     cursor.requery();
     trashAdapter.notifyDataSetChanged();
-    Log.i("Deleted", "Emptied");
   }
 
 }

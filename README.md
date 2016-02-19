@@ -1,5 +1,5 @@
 #ProNote  
-==========
+
 
 A Note taking application aimed at making note taking useful and fun.  
 
@@ -14,18 +14,13 @@ The following functions are implemented:
 * Material Design interface
 
 
-##Upcomming features  
+##Upcoming features  
 
 * Collaborate on notes
 * Image, audio and generic file attachments
 * Export notes in different formats.
 * Multilanguage support.
 * Synchronize and Manage notes online.
-
-#### Screenshots 
-
-Comming soon.
-
 
 ##Building the app
 
@@ -35,8 +30,6 @@ I am working on a personal Maven repository, which you can use to avoid having t
 
 They're all listed in the [build.gradle](https://github.com/andela-cnwokocha/ProNotes/blob/master/app/build.gradle):
 
-
-####Passionately being developed by just.protein
 
 ##License
 

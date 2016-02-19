@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <PreferenceCategory
             android:title="Autosave note">
 
@@ -15,9 +16,9 @@
                 android:dependency="autosave"
                 android:layout="?android:attr/preferenceLayoutChild"
                 android:title="Enter seconds"
-                android:summary="Rate at which notes are autosaved"
+                android:summary="Rate notes are autosaved"
                 android:inputType="number"
-                android:defaultValue="5"
+                android:defaultValue="2"
                 android:dialogTitle="Enter the rate (in seconds) to autosave notes" />
         </PreferenceCategory>
 

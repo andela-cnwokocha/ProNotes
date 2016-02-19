@@ -100,4 +100,5 @@
     <string name="note_title">Note Title</string>
     <string name="noNote_button">Click To Add Notes</string>
     <string name="noNotetext">No notes added</string>
+    <string name="note_content">Write</string>
 </resources>

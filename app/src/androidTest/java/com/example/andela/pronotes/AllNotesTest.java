@@ -11,7 +11,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.*;
 
-
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
@@ -65,11 +64,5 @@ public class AllNotesTest {
         .check(matches(withText("All Not Done?")));
     ViewActions.closeSoftKeyboard();
   }
-
-  @Test
-  public void testLongClickOnListViewItem() {
-
-  }
-
 
 }

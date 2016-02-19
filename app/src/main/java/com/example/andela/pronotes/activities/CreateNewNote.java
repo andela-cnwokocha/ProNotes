@@ -2,7 +2,9 @@ package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ public class CreateNewNote extends AppCompatActivity {
 
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);
+    Log.i("Prefrf_bool", String.valueOf(autoSaveNotebook));
 
     if(autoSaveNotebook) {
       repeatRate = getUpdateRate();
@@ -73,7 +76,7 @@ public class CreateNewNote extends AppCompatActivity {
   @Override
   public void onResume() {
     super.onResume();
-    autoSaveNotebook = preferences.getBoolean("autosave", true);
+    autoSaveNotebook = preferences.getBoolean("autosave", false);
   }
 
   public void initialize() {
@@ -95,6 +98,7 @@ public class CreateNewNote extends AppCompatActivity {
     noteModel.tag = tagnameString;
     noteModel.noteBook = category;
     noteModel.save();
+    Log.i("Prefrf", "Saving");
     noteId = noteModel.getId();
     isFromEdit = true;
   }
@@ -144,7 +148,6 @@ public class CreateNewNote extends AppCompatActivity {
         saveNoteToDb();
       }
       autoSaveHandler.postDelayed(this, 1000 * repeatRate);
-
     }
   };
 
@@ -190,8 +193,10 @@ public class CreateNewNote extends AppCompatActivity {
     autoSaveHandler.removeCallbacks(runAutoSave);
   }
 
+
   private int getUpdateRate() {
-    int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "1"));
+    int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "2"));
+    Log.i("Prefrf", String.valueOf(updaterate));
     return (updaterate > 0 ? updaterate : 1);
   }
 
