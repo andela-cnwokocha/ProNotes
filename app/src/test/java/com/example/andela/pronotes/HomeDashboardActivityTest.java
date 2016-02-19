@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.example.andela.pronotes.activities.CreateNewNote;
-import com.example.andela.pronotes.activities.HomeDashboardActivity;
 
 import org.junit.Before;
 import org.junit.Test;

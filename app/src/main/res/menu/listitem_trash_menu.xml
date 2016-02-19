@@ -5,10 +5,6 @@
           android:icon="@android:drawable/ic_menu_edit"
           android:title="@string/edit_note"/>
 
-    <!--<item android:id="@+id/share"
-          android:icon="@android:drawable/ic_menu_share"
-          android:title="@string/share_note" />-->
-
     <item android:id="@+id/trash_note"
           android:icon="@android:drawable/ic_menu_delete"
           android:title="@string/Trash"/>

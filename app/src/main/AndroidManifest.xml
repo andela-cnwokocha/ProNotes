@@ -16,15 +16,9 @@
             android:name="AA_DB_VERSION"
             android:value="1"/>
 
-        <activity android:name=".activities.HomeDashboardActivity">
-        </activity>
         <activity
             android:name=".activities.CreateNewNote"
             android:configChanges="orientation|screenSize">
-        </activity>
-        <activity android:name=".activities.ReminderActivity">
-        </activity>
-        <activity android:name=".activities.NoteBooksActivity">
         </activity>
         <activity
             android:name=".activities.ReadNoteActivity"
@@ -32,10 +26,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activities.TrashListActiviy">
-        </activity>
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings">
         </activity>
         <activity
             android:name=".activities.AllNotesActivity"
