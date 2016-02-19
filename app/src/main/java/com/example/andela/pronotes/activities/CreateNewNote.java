@@ -102,6 +102,9 @@ public class CreateNewNote extends AppCompatActivity {
   private void setNoteDetails() {
     tagnameString = this.tagname.getText().toString().trim();
     category = this.notebookCategory.getText().toString().trim();
+    if (category.length() < 1) {
+      category = "Misc";
+    }
     title = this.noteTitle.getText().toString().trim();
     noteText = this.note.getText().toString().trim();
   }
@@ -141,7 +144,7 @@ public class CreateNewNote extends AppCompatActivity {
         saveNoteToDb();
       }
       autoSaveHandler.postDelayed(this, 1000 * repeatRate);
-      Log.i("tospi", "Note autosave ?" + repeatRate);
+
     }
   };
 
@@ -188,7 +191,7 @@ public class CreateNewNote extends AppCompatActivity {
   }
 
   private int getUpdateRate() {
-    int updaterate = Integer.parseInt(preferences.getString("autosaveRate", ""));
+    int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "1"));
     return (updaterate > 0 ? updaterate : 1);
   }
 

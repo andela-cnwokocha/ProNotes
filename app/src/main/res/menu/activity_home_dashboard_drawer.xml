@@ -6,18 +6,18 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/nav_home"
             android:title="@string/Home"/>
-        <item
+        <!--<item
             android:id="@+id/nav_reminder"
             android:icon="@drawable/nav_reminder"
-            android:title="@string/reminder"/>
+            android:title="@string/reminder"/>-->
         <item
             android:id="@+id/nav_notebooks"
             android:icon="@drawable/nav_note_books"
             android:title="@string/note_books"/>
-        <item
+        <!--<item
             android:id="@+id/nav_collection"
             android:icon="@drawable/nav_collections"
-            android:title="@string/Ccollections"/>
+            android:title="@string/Ccollections"/>-->
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
@@ -28,7 +28,7 @@
             android:title="@string/navTrash"/>
     </group>
 
-    <item android:title="@string/communication">
+    <!--<item android:title="@string/communication">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -39,6 +39,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/syncOnline"/>
         </menu>
-    </item>
+    </item>-->
 
 </menu>

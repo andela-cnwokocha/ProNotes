@@ -14,6 +14,9 @@ import com.example.andela.pronotes.utils.DbConstants;
 
 import org.parceler.Parcel;
 
+import java.util.HashMap;
+import java.util.List;
+
 
 /**
  * Created by Chidi on 2/9/16.
@@ -67,4 +70,22 @@ public class NoteModel extends Model {
     new Delete().from(NoteModel.class).where("Trash = " + id).execute();
   }
 
+  public static HashMap<String, Integer> fetchNoteByCategory() {
+    List<NoteModel> categoryList = new Select(new String[]{"Id,Note_Books_categories"}).from(NoteModel.class).where("Trash = 0").execute();
+    HashMap<String, Integer > category = new HashMap<String, Integer>();
+    for (NoteModel note : categoryList) {
+      if (category.containsKey(note.noteBook)) {
+        int curVal = category.get(note.noteBook);
+        category.put(note.noteBook, curVal + 1);
+      } else {
+        category.put(note.noteBook, 1);
+      }
+    }
+    return category;
+  }
+
+  @Override
+  public String toString() {
+    return String.format(" %s [NoteModel - %s, %s]", getClass().getSimpleName(), this.noteBook, this.getId());
+  }
 }

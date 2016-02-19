@@ -1,6 +1,5 @@
 package com.example.andela.pronotes.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
@@ -12,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.AllNotesAdapter;
@@ -33,7 +30,9 @@ import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import org.parceler.Parcels;
 
 
-public class AllNotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AllNotesActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
+
   private Cursor notesCursor;
   private AllNotesAdapter allNotesAdapter;
   private ListView listview;
@@ -46,7 +45,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_all_notes);
-    setTitle("All Notes");
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
@@ -56,21 +54,10 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
 
     notesCursor = NoteModel.fetchResults(0);
-    Log.i("ZIX", String.valueOf(notesCursor.getCount()));
     noNoteButton = (Button) findViewById(R.id.noNote);
 
-    if(notesCursor.getCount() < 1) {
-      TextView noNoteView = (TextView) findViewById(R.id.noNote_text);
-      noNoteView.setVisibility(View.VISIBLE);
-      noNoteButton.setVisibility(View.VISIBLE);
-    }
-
-    allNotesAdapter = new AllNotesAdapter(this, notesCursor);
-    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
-    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
-    animationAdapter.setAbsListView(listview);
-    listview.setAdapter(animationAdapter);
-
+    setView();
+    loadData();
     moveToTrash();
     readNote();
     addNewNote();
@@ -86,7 +73,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.action_settings) {
-      Intent settingsIntent = new Intent(this, SettingsActivity.class);
+      Intent settingsIntent = new Intent(this, Settings.class);
       startActivity(settingsIntent);
       return true;
     }
@@ -99,9 +86,7 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      Intent reminderIntent = new Intent(this, HomeDashboardActivity.class);
-      startActivity(reminderIntent);
-      super.onBackPressed();
+      minimizeApp();
     }
   }
 
@@ -111,24 +96,13 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
     int id = item.getItemId();
 
     if (id == R.id.nav_home) {
-      Intent reminderIntent = new Intent(this, HomeDashboardActivity.class);
-      startActivity(reminderIntent);
-    } else if (id == R.id.nav_reminder) {
-      Intent reminderIntent = new Intent(this, ReminderActivity.class);
-      startActivity(reminderIntent);
+
     } else if (id == R.id.nav_notebooks) {
       Intent allNotesIntent = new Intent(this, AllNotesActivity.class);
       startActivity(allNotesIntent);
-    } else if (id == R.id.nav_collection) {
-      Intent noteCollectionsIntent = new Intent(this, NoteBooksActivity.class);
-      startActivity(noteCollectionsIntent);
     } else if (id == R.id.nav_settings) {
-      Intent settingsIntent = new Intent(this, SettingsActivity.class);
+      Intent settingsIntent = new Intent(this, Settings.class);
       startActivity(settingsIntent);
-    } else if (id == R.id.nav_share) {
-
-    } else if (id == R.id.nav_sync) {
-
     } else if (id == R.id.nav_trash) {
       Intent trashIntent = new Intent(this, TrashListActiviy.class);
       startActivity(trashIntent);
@@ -148,8 +122,6 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
               return true;
             }
             itemId = id;
-            Log.i("tosp_long_id", String.valueOf(id));
-            Log.i("tosp_long_pos", String.valueOf(position));
             actionMode = startActionMode(modeCallBack);
             item.setSelected(true);
             return true;
@@ -179,16 +151,13 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
           startActivity(editNoteIntent);
           mode.finish();
           return true;
-        case R.id.share:
-          Log.i("tosp_shared", "Shared selected");
-          mode.finish();
-          return true;
         case R.id.trash_note:
           NoteModel trash = NoteModel.load(NoteModel.class, itemId);
           trash.trashId = 1;
           trash.save();
           notesCursor.requery();
           allNotesAdapter.notifyDataSetChanged();
+          setView();
           mode.finish();
         default:
           return false;
@@ -235,6 +204,29 @@ public class AllNotesActivity extends AppCompatActivity implements NavigationVie
         startActivity(createNoteIntent);
       }
     });
+  }
+
+  private void setView() {
+    if(notesCursor.getCount() < 1) {
+      TextView noNoteView = (TextView) findViewById(R.id.noNote_text);
+      noNoteView.setVisibility(View.VISIBLE);
+      noNoteButton.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void loadData() {
+    allNotesAdapter = new AllNotesAdapter(this, notesCursor);
+    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
+    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
+    animationAdapter.setAbsListView(listview);
+    listview.setAdapter(animationAdapter);
+  }
+
+  private void minimizeApp() {
+    Intent main = new Intent(Intent.ACTION_MAIN);
+    main.addCategory(Intent.CATEGORY_HOME);
+    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(main);
   }
 
 }

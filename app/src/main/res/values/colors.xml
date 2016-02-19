@@ -7,4 +7,5 @@
     <color name="textColorSecondary">#727272</color>
     <color name="actionMenuTextColor">#FFFFFF</color>
     <color name="colorPrimaryLight">#B2DFDB</color>
+    <color name="dividerColor">#B6B6B6</color>
 </resources>

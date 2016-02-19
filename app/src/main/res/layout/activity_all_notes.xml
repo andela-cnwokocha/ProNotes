@@ -8,30 +8,74 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/content_panel">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/noNote_text"
+                android:visibility="gone"
+                android:text="@string/noNotetext"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/noNote_button"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:id="@+id/noNote"
+                android:textColor="@color/textColorSecondary"/>
+        </LinearLayout>
 
-        <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
-            android:id="@+id/dynamiclistview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginLeft="7dp"/>
+            android:orientation="vertical"
+            android:id="@+id/content_panel">
 
-    </LinearLayout>
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tool_bar"
+                    android:layout_width="match_parent"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+                android:id="@+id/dynamiclistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginLeft="7dp"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_input_add"
+            android:clickable="true"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
