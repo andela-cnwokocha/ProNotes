@@ -21,7 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * Created by andela on 2/18/16.
+ * Created by Chidi on 2/18/16.
  */
 public class AllNotesTest {
 
@@ -64,6 +64,11 @@ public class AllNotesTest {
         .perform(typeText("All Not Done?"))
         .check(matches(withText("All Not Done?")));
     ViewActions.closeSoftKeyboard();
+  }
+
+  @Test
+  public void testLongClickOnListViewItem() {
+
   }
 
 

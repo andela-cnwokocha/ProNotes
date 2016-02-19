@@ -17,8 +17,7 @@ public class Settings extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     getFragmentManager().beginTransaction()
-         .replace(R.id.preference_area, new SettingsActivity()).commit();
-
+         .replace(R.id.preference_area, new SettingsFragment()).commit();
   }
 
 }

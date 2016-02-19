@@ -58,7 +58,6 @@ public class AllNotesActivity extends AppCompatActivity
 
     setView();
     loadData();
-
     moveToTrash();
     readNote();
     addNewNote();
@@ -87,9 +86,7 @@ public class AllNotesActivity extends AppCompatActivity
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      Intent minimize = new Intent(Intent.CATEGORY_HOME);
-      startActivity(minimize);
-
+      minimizeApp();
     }
   }
 
@@ -223,6 +220,13 @@ public class AllNotesActivity extends AppCompatActivity
     AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
     animationAdapter.setAbsListView(listview);
     listview.setAdapter(animationAdapter);
+  }
+
+  private void minimizeApp() {
+    Intent main = new Intent(Intent.ACTION_MAIN);
+    main.addCategory(Intent.CATEGORY_HOME);
+    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(main);
   }
 
 }
