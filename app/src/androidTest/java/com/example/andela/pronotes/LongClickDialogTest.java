@@ -34,7 +34,7 @@ public class LongClickDialogTest {
   @Rule
   public ActivityTestRule<AllNotesActivity> allNotesTest = new ActivityTestRule<>(AllNotesActivity.class);
 
-  /*  Assuming data already and is populated on the view */
+  /* data already populates the view */
   @Test
   public void testLongClickEditOption() {
     onData(anything())

@@ -21,11 +21,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CreateNewNote extends AppCompatActivity {
-  private EditText tagname;
   private EditText notebookCategory;
   private EditText noteTitle;
   private EditText note;
-  private String tagnameString;
+
   private String category;
   private String title;
   private String noteText;
@@ -51,7 +50,6 @@ public class CreateNewNote extends AppCompatActivity {
 
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);
-    Log.i("Prefrf_bool", String.valueOf(autoSaveNotebook));
 
     if(autoSaveNotebook) {
       repeatRate = getUpdateRate();
@@ -80,7 +78,6 @@ public class CreateNewNote extends AppCompatActivity {
   }
 
   public void initialize() {
-    tagname = (EditText) findViewById(R.id.create_note_tag);
     notebookCategory = (EditText) findViewById(R.id.create_note_notebook);
     noteTitle = (EditText) findViewById(R.id.note_title);
     note = (EditText) findViewById(R.id.createnotebook_line);
@@ -91,20 +88,18 @@ public class CreateNewNote extends AppCompatActivity {
     if(isFromEdit) {
       noteModel = NoteModel.load(NoteModel.class, noteId);
     }
+    //noteModel = NoteModel.saveToDb();
     noteModel.currentTime = getLogTime();
     noteModel.note_text = noteText;
     noteModel.trashId = 0;
     noteModel.note_title = title;
-    noteModel.tag = tagnameString;
     noteModel.noteBook = category;
     noteModel.save();
-    Log.i("Prefrf", "Saving");
     noteId = noteModel.getId();
     isFromEdit = true;
   }
 
   private void setNoteDetails() {
-    tagnameString = this.tagname.getText().toString().trim();
     category = this.notebookCategory.getText().toString().trim();
     if (category.length() < 1) {
       category = "Misc";
@@ -165,7 +160,6 @@ public class CreateNewNote extends AppCompatActivity {
     if (extras != null) {
       noteId = extras.getLong("NoteId");
       NoteModel note = getNote(noteId);
-      tagname.setText(note.tag);
       notebookCategory.setText(note.noteBook);
       noteTitle.setText(note.note_title);
       this.note.setText(note.note_text);
@@ -196,8 +190,7 @@ public class CreateNewNote extends AppCompatActivity {
 
   private int getUpdateRate() {
     int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "2"));
-    Log.i("Prefrf", String.valueOf(updaterate));
-    return (updaterate > 0 ? updaterate : 1);
+    return (updaterate > 0.5 ? updaterate : 2);
   }
 
 }

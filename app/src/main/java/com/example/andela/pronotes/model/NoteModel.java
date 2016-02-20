@@ -35,9 +35,6 @@ public class NoteModel extends Model {
   @Column(name = "Modified_time")
   public String currentTime;
 
-  @Column(name = "note_books_tags")
-  public String tag;
-
   @Column(name = "Trash")
   public int trashId;
 
@@ -48,7 +45,7 @@ public class NoteModel extends Model {
     super();
   }
 
-  public NoteModel(String note_title, String noteBook_category, String logNote_time, String note_tag,
+  public NoteModel(String note_title, String noteBook_category, String logNote_time,
                    int trashId, String note_text) {
     super();
     this.note_title = note_title;
@@ -56,7 +53,6 @@ public class NoteModel extends Model {
     this.currentTime = logNote_time;
     this.trashId = trashId;
     this.note_text = note_text;
-    this.tag = note_tag;
   }
 
   public static Cursor fetchResults(int id) {
@@ -85,7 +81,13 @@ public class NoteModel extends Model {
   }
 
   @Override
-  public String toString() {
+  public  String toString() {
     return String.format(" %s [NoteModel - %s, %s]", getClass().getSimpleName(), this.noteBook, this.getId());
   }
+
+  public static void saveToDb(String time, String text, String noteBook, String title, int trashId) {
+    NoteModel note = new NoteModel(title, noteBook, time, trashId, text);
+    note.save();
+  }
+
 }
