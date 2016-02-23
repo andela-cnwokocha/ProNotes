@@ -1,7 +1,6 @@
 package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,43 +9,35 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.adapter.AllNotesAdapter;
+import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.model.NoteModel;
-import com.example.andela.pronotes.utils.ViewConstants;
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
-import org.parceler.Parcels;
+import java.util.List;
 
 
 public class AllNotesActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
-  private Cursor notesCursor;
-  private AllNotesAdapter allNotesAdapter;
-  private ListView listview;
-  private ActionMode actionMode;
-  private long itemId;
+  private List<NoteModel> notes;
+  private NotesViewAdapter pva;
   private Toolbar toolbar;
   private Button noNoteButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_all_notes);
+    setContentView(R.layout.activity_main);
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
@@ -55,7 +46,6 @@ public class AllNotesActivity extends AppCompatActivity
 
     PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
 
-    notesCursor = NoteModel.fetchResults(0);
     noNoteButton = (Button) findViewById(R.id.noNote);
 
     noNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +55,21 @@ public class AllNotesActivity extends AppCompatActivity
       }
     });
 
+    notes = NoteModel.fetchNotes(0);
     setView();
-    loadData();
-    moveToTrash();
-    readNote();
+
+    RecyclerView rcv = (RecyclerView) findViewById(R.id.rv);
+
+    GridLayoutManager llm = new GridLayoutManager(this,2);
+    llm.setOrientation(LinearLayoutManager.VERTICAL);
+    rcv.setLayoutManager(llm);
+    rcv.setHasFixedSize(true);
+
+    pva = new NotesViewAdapter(NoteModel.fetchNotes(0));
+    rcv.setAdapter(pva);
+
     addNewNote();
+
   }
 
   @Override
@@ -104,9 +104,7 @@ public class AllNotesActivity extends AppCompatActivity
   public boolean onNavigationItemSelected(MenuItem item) {
     int id = item.getItemId();
 
-    if (id == R.id.nav_home) {
-
-    } else if (id == R.id.nav_notebooks) {
+   if (id == R.id.nav_notebooks) {
       Intent allNotesIntent = new Intent(this, AllNotesActivity.class);
       startActivity(allNotesIntent);
     } else if (id == R.id.nav_settings) {
@@ -120,77 +118,6 @@ public class AllNotesActivity extends AppCompatActivity
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
-  }
-
-  private void moveToTrash() {
-    listview.setOnItemLongClickListener(
-        new AdapterView.OnItemLongClickListener() {
-          @Override
-          public boolean onItemLongClick(AdapterView<?> adapter, View item, int position, long id) {
-            if (actionMode != null) {
-              return true;
-            }
-            itemId = id;
-            actionMode = startActionMode(modeCallBack);
-            item.setSelected(true);
-            return true;
-          }
-        });
-  }
-
-  private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
-    @Override
-    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-      mode.setTitle(ViewConstants.HOME_SCREEN.toString());
-      mode.getMenuInflater().inflate(R.menu.listitem_trash_menu, menu);
-      return true;
-    }
-
-    @Override
-    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-      return false;
-    }
-
-    @Override
-    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-      switch (item.getItemId()) {
-        case R.id.edit:
-          Intent editNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
-          editNoteIntent.putExtra("NoteId", itemId);
-          startActivity(editNoteIntent);
-          mode.finish();
-          return true;
-        case R.id.trash_note:
-          NoteModel trash = NoteModel.load(NoteModel.class, itemId);
-          trash.trashId = 1;
-          trash.save();
-          notesCursor.requery();
-          allNotesAdapter.notifyDataSetChanged();
-          setView();
-          mode.finish();
-        default:
-          return false;
-      }
-    }
-
-    @Override
-    public void onDestroyActionMode(ActionMode mode) {
-      actionMode = null;
-    }
-
-  };
-
-  private void readNote() {
-    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        NoteModel noteModel = NoteModel.load(NoteModel.class, id);
-        Intent readNoteIntent = new Intent(AllNotesActivity.this, ReadNoteActivity.class);
-        readNoteIntent.putExtra("Note", Parcels.wrap(noteModel));
-        readNoteIntent.putExtra("ID", Parcels.wrap(id));
-        startActivity(readNoteIntent);
-      }
-    });
   }
 
   private void setUpNavigation() {
@@ -215,18 +142,11 @@ public class AllNotesActivity extends AppCompatActivity
   }
 
   private void setView() {
-    if(notesCursor.getCount() < 1) {
+
+    if(notes.size() < 1) {
       LinearLayout layout = (LinearLayout) findViewById(R.id.noNoteLayout);
       layout.setVisibility(View.VISIBLE);
     }
-  }
-
-  private void loadData() {
-    allNotesAdapter = new AllNotesAdapter(this, notesCursor);
-    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
-    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(allNotesAdapter);
-    animationAdapter.setAbsListView(listview);
-    listview.setAdapter(animationAdapter);
   }
 
   private void minimizeApp() {
