@@ -50,6 +50,12 @@ public class ReadNoteActivity extends AppCompatActivity {
 
     note = Parcels.unwrap(getIntent().getParcelableExtra("Note"));
     contentView = (TextView) findViewById(R.id.note_read);
+    String title = note.note_title.trim();
+    if(title.length() < 1) {
+      getSupportActionBar().setTitle("Untitled");
+    } else {
+      getSupportActionBar().setTitle(note.note_title);
+    }
     contentView.setText(note.note_text);
     noteId = Parcels.unwrap(getIntent().getParcelableExtra("ID"));
 

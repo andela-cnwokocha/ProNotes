@@ -32,7 +32,7 @@ public class TrashListActiviy extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_all_notes);
+    setContentView(R.layout.activity_trash_list_activiy);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setVisibility(View.GONE);
@@ -48,7 +48,7 @@ public class TrashListActiviy extends AppCompatActivity {
         onBackPressed();
       }
     });
-    getSupportActionBar().setTitle("Pronote");
+    getSupportActionBar().setTitle("Trash");
 
     this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
     cursor = NoteModel.fetchResults(1);

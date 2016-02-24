@@ -12,32 +12,37 @@ import android.widget.EditText;
  * Created by andela on 2/9/16.
  */
 public class LinedEditTextView extends EditText{
-
   private Rect line;
-  private Paint linepaint;
+  private Paint linePaint;
   private static final String LINECOLOR = "#00796B";
 
-  public LinedEditTextView(Context context, AttributeSet attributeset) {
-    super(context, attributeset);
-
+  public LinedEditTextView(Context context, AttributeSet attrs) {
+    super(context, attrs);
     line = new Rect();
-    linepaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    float weight = getResources().getDisplayMetrics().density;
-    linepaint.setStrokeWidth(weight);
-    linepaint.setStyle(Paint.Style.STROKE);
-    linepaint.setColor(Color.parseColor(LINECOLOR));
-  }
+    linePaint = new Paint();
 
+    linePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+    linePaint.setColor(Color.parseColor(LINECOLOR));
+
+  }
   @Override
   protected void onDraw(Canvas canvas) {
-    int count = getLineCount();
-    Rect aLine = line;
-    Paint paintline = linepaint;
+    int height = getHeight();
+    int lineHeight = getLineHeight();
+    int count = height / lineHeight;
+    if (getLineCount() > count)
+      count = getLineCount();
 
-    for(int i = 0; i < count; i++) {
-      int baseline = getLineBounds(i, aLine);
-      canvas.drawLine(aLine.left, baseline + 1, aLine.right, baseline + 1, paintline);
+    Rect rect = line;
+    Paint paint = linePaint;
+    int baseline = getLineBounds(0, rect);
+
+    for (int line = 0; line < count; line++) {
+
+      canvas.drawLine(rect.left, baseline + 1, rect.right, baseline + 1, paint);
+      baseline += getLineHeight();
     }
     super.onDraw(canvas);
   }
+
 }

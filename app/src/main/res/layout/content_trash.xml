@@ -9,11 +9,23 @@
     tools:context=".activities.ReadNoteActivity"
     tools:showIn="@layout/activity_readnote">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/note_read"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text"/>
+        card_view:cardBackgroundColor="#E6E6E6"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/note_read"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/large_text"
+            android:textSize="14sp"/>
+
+    </android.support.v7.widget.CardView>
 
 </android.support.v4.widget.NestedScrollView>
