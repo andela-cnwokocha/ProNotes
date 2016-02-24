@@ -1,10 +1,13 @@
 package com.example.andela.pronotes.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +16,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.support.v7.widget.SearchView;
+import android.widget.ShareActionProvider;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
@@ -27,16 +34,19 @@ import java.util.List;
 
 
 public class AllNotesActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
   private List<NoteModel> notes;
   private NotesViewAdapter pva;
   private Toolbar toolbar;
   private Button noNoteButton;
+  private RecyclerView rcv;
+  private GridLayoutManager llm;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_main);
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -58,11 +68,15 @@ public class AllNotesActivity extends AppCompatActivity
     notes = NoteModel.fetchNotes(0);
     setView();
 
-    RecyclerView rcv = (RecyclerView) findViewById(R.id.rv);
+    rcv = (RecyclerView) findViewById(R.id.rv);
 
-    GridLayoutManager llm = new GridLayoutManager(this,2);
+    SharedPreferences preferences = this.getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
+    int span = preferences.getInt("spancount", 1);
+
+    llm = new GridLayoutManager(this,span);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     rcv.setLayoutManager(llm);
+
     rcv.setHasFixedSize(true);
 
     pva = new NotesViewAdapter(NoteModel.fetchNotes(0));
@@ -75,7 +89,23 @@ public class AllNotesActivity extends AppCompatActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.home_dashboard, menu);
+
+    final MenuItem item = menu.findItem(R.id.action_search);
+    final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+    searchView.setOnQueryTextListener(this);
+
     return true;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String query) {
+    // Here is where we are going to implement our filter logic
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
   }
 
   @Override
@@ -85,6 +115,19 @@ public class AllNotesActivity extends AppCompatActivity
       Intent settingsIntent = new Intent(this, Settings.class);
       startActivity(settingsIntent);
       return true;
+    } else if (id == R.id.layout) {
+      SharedPreferences prefs = getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
+      SharedPreferences.Editor editor = prefs.edit();
+      if(llm.getSpanCount() == 1) {
+        editor.putInt("spancount", 2);
+        llm.setSpanCount(2);
+        llm.requestLayout();
+      } else {
+        editor.putInt("spancount", 1);
+        llm.setSpanCount(1);
+        llm.requestLayout();
+      }
+      editor.apply();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -112,7 +155,7 @@ public class AllNotesActivity extends AppCompatActivity
       startActivity(settingsIntent);
     } else if (id == R.id.nav_trash) {
       Intent trashIntent = new Intent(this, TrashListActiviy.class);
-      startActivity(trashIntent);
+     startActivity(trashIntent);
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -160,5 +203,19 @@ public class AllNotesActivity extends AppCompatActivity
     Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
     startActivity(createNoteIntent);
   }
+
+  /*private void setLayout(RecyclerView rcv) {
+    SharedPreferences recyclerLayout = getPreferences(MODE_PRIVATE);
+    boolean b = recyclerLayout.getBoolean("recyclerLayout", false);
+    if (b) {
+      LinearLayoutManager llm = new LinearLayoutManager(this);
+      llm.setOrientation(LinearLayoutManager.VERTICAL);
+      rcv.setLayoutManager(llm);
+    } else {
+      GridLayoutManager llm = new GridLayoutManager(this,2);
+      llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+      rcv.setLayoutManager(llm);
+    }
+  }*/
 
 }
