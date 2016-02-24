@@ -58,7 +58,6 @@ public class ReadNoteActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         Intent editNoteIntent = new Intent(ReadNoteActivity.this, CreateNewNote.class);
-        Log.i("idz", String.valueOf(noteId));
         editNoteIntent.putExtra("NoteId", noteId);
         startActivity(editNoteIntent);
       }

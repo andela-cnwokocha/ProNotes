@@ -37,9 +37,6 @@ public class AllNotesTest {
     onView(withId(R.id.create_note_notebook))
         .perform(typeText("Espresso"))
         .check(matches(withText("Espresso")));
-    onView(withId(R.id.create_note_tag))
-        .perform(typeText("E"))
-        .check(matches(withText("E")));
     onView(withId(R.id.note_title))
         .perform(typeText("Is All Done"))
         .check(matches(withText("Is All Done")));

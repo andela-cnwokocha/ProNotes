@@ -11,12 +11,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,6 +57,13 @@ public class AllNotesActivity extends AppCompatActivity
 
     notesCursor = NoteModel.fetchResults(0);
     noNoteButton = (Button) findViewById(R.id.noNote);
+
+    noNoteButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startCreateNote();
+      }
+    });
 
     setView();
     loadData();
@@ -200,17 +209,15 @@ public class AllNotesActivity extends AppCompatActivity
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
-        startActivity(createNoteIntent);
+        startCreateNote();
       }
     });
   }
 
   private void setView() {
     if(notesCursor.getCount() < 1) {
-      TextView noNoteView = (TextView) findViewById(R.id.noNote_text);
-      noNoteView.setVisibility(View.VISIBLE);
-      noNoteButton.setVisibility(View.VISIBLE);
+      LinearLayout layout = (LinearLayout) findViewById(R.id.noNoteLayout);
+      layout.setVisibility(View.VISIBLE);
     }
   }
 
@@ -227,6 +234,11 @@ public class AllNotesActivity extends AppCompatActivity
     main.addCategory(Intent.CATEGORY_HOME);
     main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(main);
+  }
+
+  private void startCreateNote() {
+    Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
+    startActivity(createNoteIntent);
   }
 
 }

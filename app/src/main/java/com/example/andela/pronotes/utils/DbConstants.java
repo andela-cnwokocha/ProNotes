@@ -17,7 +17,7 @@ public enum DbConstants {
   }
 
   public String toString() {
-    return name;
+    return this.name;
   }
 
 }

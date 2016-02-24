@@ -14,28 +14,6 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/noNote_text"
-                android:visibility="gone"
-                android:text="@string/noNotetext"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/noNote_button"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:id="@+id/noNote"
-                android:textColor="@color/textColorSecondary"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -52,8 +30,29 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"/>
-
             </android.support.design.widget.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:id="@+id/noNoteLayout"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/noNote_text"
+                    android:text="@string/noNotetext"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noNote_button"
+                    android:layout_gravity="center"
+                    android:id="@+id/noNote"
+                    android:textColor="@color/textColorSecondary"/>
+            </LinearLayout>
 
             <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
                 android:id="@+id/dynamiclistview"
