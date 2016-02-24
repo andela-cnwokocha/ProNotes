@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
+import com.vstechlab.easyfonts.EasyFonts;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -44,9 +45,20 @@ public class CreateNewNote extends AppCompatActivity {
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
+    toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
 
     Bundle extras = getIntent().getExtras();
     noteFromBundle(extras);
+
+    note.setTypeface(EasyFonts.cac_champagne(this));
+    noteTitle.setTypeface(EasyFonts.tangerineBold(this));
+    notebookCategory.setTypeface(EasyFonts.robotoBoldItalic(this));
 
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);

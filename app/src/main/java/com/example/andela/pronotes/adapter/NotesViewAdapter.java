@@ -107,7 +107,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       itemId = note.getId();
       ((AppCompatActivity) context).startSupportActionMode(modeCallBack);
       v.setSelected(true);
-      Toast.makeText(context, "lekpa", Toast.LENGTH_LONG).show();
       return true;
     }
 
@@ -139,7 +138,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
             trash.save();
             notes.remove(getLayoutPosition());
             notifyItemRemoved(getLayoutPosition());
-
             mode.finish();
           default:
             return false;
