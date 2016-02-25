@@ -6,10 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--
-        <item name="android:textColor">@color/textColorPrimary</item>
-        <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        -->
         <item name="android:actionBarDivider">@color/dividerColor</item>
         <item name="android:actionModeBackground">@color/colorPrimaryLight</item>
         <item name="android:actionMenuTextColor">@color/actionMenuTextColor</item>

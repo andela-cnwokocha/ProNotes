@@ -101,4 +101,8 @@
     <string name="noNote_button">Click To Add Notes</string>
     <string name="noNotetext">No notes added</string>
     <string name="note_content">Write</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="layout_list">Change Layout</string>
+    <string name="search">search</string>
+    <string name="trashEmpty">No note here</string>
 </resources>

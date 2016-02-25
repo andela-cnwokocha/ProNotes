@@ -10,4 +10,54 @@
         <item>RED</item>
         <item>GRN</item>
     </string-array>
+    <string-array name="body_entries">
+        <item>Roboto black</item>
+        <item>Roboto medium</item>
+        <item>Droid Serif Italic</item>
+        <item>Droid Serif Regular</item>
+        <item>Funraiser</item>
+        <item>Tangerine bold</item>
+        <item>Windsong</item>
+        <item>Ostrich bold</item>
+        <item>Cavier Dreams</item>
+        <item>Capture it</item>
+    </string-array>
+    <string-array name="body_value">
+        <item>RobotoBlack</item>
+        <item>RobotoMedium</item>
+        <item>DroidSerifItalic</item>
+        <item>DroidSerifRegular</item>
+        <item>Funraiser</item>
+        <item>Tangerinebold</item>
+        <item>Windsong</item>
+        <item>Ostrichbold</item>
+        <item>CavierDreams</item>
+        <item>CaptureIt</item>
+    </string-array>
+    <string-array name="title_entries">
+        <item>Roboto black</item>
+        <item>Roboto medium</item>
+        <item>Droid Serif Italic</item>
+        <item>Droid Serif Regular</item>
+        <item>Funraiser</item>
+        <item>Tangerine bold</item>
+        <item>Windsong</item>
+        <item>Ostrich bold</item>
+        <item>Cavier Dreams</item>
+        <item>Capture it</item>
+    </string-array>
+    <string-array name="title_value">
+        <item>RobotoBlack</item>
+        <item>RobotoMedium</item>
+        <item>DroidSerifItalic</item>
+        <item>DroidSerifRegular</item>
+        <item>Funraiser</item>
+        <item>Tangerinebold</item>
+        <item>Windsong</item>
+        <item>Ostrichbold</item>
+        <item>CavierDreams</item>
+        <item>CaptureIt</item>
+    </string-array>
 </resources>
+
+
