@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,9 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +63,6 @@ public class AllNotesActivity extends AppCompatActivity
     notes = NoteModel.fetchNotes(0);
     setView();
 
-
     rcv = (RecyclerView) findViewById(R.id.rv);
 
     SharedPreferences preferences = this.getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
@@ -75,9 +71,7 @@ public class AllNotesActivity extends AppCompatActivity
     llm = new GridLayoutManager(this,span);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     rcv.setLayoutManager(llm);
-
     rcv.setHasFixedSize(true);
-
     pva = new NotesViewAdapter(NoteModel.fetchNotes(0));
     rcv.setAdapter(pva);
 
