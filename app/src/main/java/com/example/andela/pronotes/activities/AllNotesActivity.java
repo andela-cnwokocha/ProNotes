@@ -24,7 +24,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.support.v7.widget.SearchView;
-import android.widget.ShareActionProvider;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
@@ -43,6 +42,7 @@ public class AllNotesActivity extends AppCompatActivity
   private RecyclerView rcv;
   private GridLayoutManager llm;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -57,16 +57,15 @@ public class AllNotesActivity extends AppCompatActivity
     PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
 
     noNoteButton = (Button) findViewById(R.id.noNote);
-
     noNoteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         startCreateNote();
       }
     });
-
     notes = NoteModel.fetchNotes(0);
     setView();
+
 
     rcv = (RecyclerView) findViewById(R.id.rv);
 
@@ -203,19 +202,5 @@ public class AllNotesActivity extends AppCompatActivity
     Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
     startActivity(createNoteIntent);
   }
-
-  /*private void setLayout(RecyclerView rcv) {
-    SharedPreferences recyclerLayout = getPreferences(MODE_PRIVATE);
-    boolean b = recyclerLayout.getBoolean("recyclerLayout", false);
-    if (b) {
-      LinearLayoutManager llm = new LinearLayoutManager(this);
-      llm.setOrientation(LinearLayoutManager.VERTICAL);
-      rcv.setLayoutManager(llm);
-    } else {
-      GridLayoutManager llm = new GridLayoutManager(this,2);
-      llm.setOrientation(LinearLayoutManager.HORIZONTAL);
-      rcv.setLayoutManager(llm);
-    }
-  }*/
 
 }

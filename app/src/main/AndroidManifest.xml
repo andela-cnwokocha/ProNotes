@@ -40,6 +40,12 @@
         <activity
             android:name=".activities.Settings"
             android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
         </activity>
     </application>

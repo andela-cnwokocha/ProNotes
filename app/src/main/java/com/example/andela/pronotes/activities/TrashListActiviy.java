@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.example.andela.pronotes.R;
@@ -21,6 +22,7 @@ import com.example.andela.pronotes.adapter.AllNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+import com.vstechlab.easyfonts.EasyFonts;
 
 public class TrashListActiviy extends AppCompatActivity {
 
@@ -139,5 +141,4 @@ public class TrashListActiviy extends AppCompatActivity {
     cursor.requery();
     trashAdapter.notifyDataSetChanged();
   }
-
 }
