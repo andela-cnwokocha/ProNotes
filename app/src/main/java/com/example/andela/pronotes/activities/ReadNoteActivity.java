@@ -2,7 +2,9 @@ package com.example.andela.pronotes.activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +19,12 @@ import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.FontManager;
+import com.vstechlab.easyfonts.EasyFonts;
 
 import org.parceler.Parcels;
 
-public class ReadNoteActivity extends AppCompatActivity {
+public class ReadNoteActivity extends AppCompatActivity implements FontManager {
 
   private FloatingActionButton fab;
   private ShareActionProvider sharer;
@@ -28,6 +32,7 @@ public class ReadNoteActivity extends AppCompatActivity {
   private TextView contentView;
   private TextView notetitle;
   private long noteId;
+  private SharedPreferences preferences;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,9 @@ public class ReadNoteActivity extends AppCompatActivity {
     note = Parcels.unwrap(getIntent().getParcelableExtra("Note"));
     contentView = (TextView) findViewById(R.id.note_read);
     notetitle = (TextView) findViewById(R.id.note_title);
-    String title = note.note_title.trim();
+
+    setFontType(notetitle, "titleFontType");
+    setFontType(contentView,"bodyFontType");
 
     getSupportActionBar().setTitle(note.noteBook);
     contentView.setText(note.note_text);
@@ -89,4 +96,43 @@ public class ReadNoteActivity extends AppCompatActivity {
     }
   }
 
+  @Override
+  public void setFontType(TextView view, String fonttype) {
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    String fontType = preferences.getString(fonttype, "no selection");
+    switch (fontType) {
+      case "RobotoMedium":
+        view.setTypeface(EasyFonts.robotoMedium(this));
+        break;
+      case "Funraiser":
+        view.setTypeface(EasyFonts.funRaiser(this));
+        break;
+      case "Ostrichbold":
+        view.setTypeface(EasyFonts.ostrichBold(this));
+        break;
+      case "RobotoBlack":
+        view.setTypeface(EasyFonts.robotoBlack(this));
+        break;
+      case "DroidSerifItalic":
+        view.setTypeface(EasyFonts.droidSerifItalic(this));
+        break;
+      case "DroidSerifRegular":
+        view.setTypeface(EasyFonts.droidSerifRegular(this));
+        break;
+      case "Tangerinebold":
+        view.setTypeface(EasyFonts.tangerineBold(this));
+        break;
+      case "Windsong":
+        view.setTypeface(EasyFonts.windSong(this));
+        break;
+      case "CavierDreams":
+        view.setTypeface(EasyFonts.caviarDreams(this));
+        break;
+      case "CaptureIt":
+        view.setTypeface(EasyFonts.captureIt(this));
+        break;
+      default:
+        view.setTypeface(EasyFonts.ostrichBold(this));
+    }
+  }
 }

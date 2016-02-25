@@ -21,6 +21,7 @@ import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.activities.CreateNewNote;
 import com.example.andela.pronotes.activities.ReadNoteActivity;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.FontManager;
 import com.example.andela.pronotes.utils.ViewConstants;
 import com.vstechlab.easyfonts.EasyFonts;
 
@@ -66,7 +67,9 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     return notes.size();
   }
 
-  public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+
+  public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+      View.OnLongClickListener, FontManager {
 
     private CardView cardView;
     private TextView title;
@@ -94,6 +97,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       setFontType(message,"bodyFontType");
     }
 
+    @Override
     public void setFontType(TextView view, String font) {
       preferences = PreferenceManager.getDefaultSharedPreferences(context);
       String fontType = preferences.getString(font, "no selection");
