@@ -101,7 +101,6 @@ public class CreateNewNote extends AppCompatActivity {
     if(isFromEdit) {
       noteModel = NoteModel.load(NoteModel.class, noteId);
     }
-    //noteModel = NoteModel.saveToDb(getLogTime(), noteText, category, title, 0);
     noteModel.currentTime = getLogTime();
     noteModel.note_text = noteText;
     noteModel.trashId = 0;

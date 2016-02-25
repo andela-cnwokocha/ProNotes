@@ -3,41 +3,47 @@ package com.example.andela.pronotes.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.adapter.AllNotesAdapter;
+import com.example.andela.pronotes.adapter.NotesViewAdapter;
+import com.example.andela.pronotes.adapter.TrashNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.vstechlab.easyfonts.EasyFonts;
+
+import java.util.List;
 
 public class TrashListActiviy extends AppCompatActivity {
 
-  private ListView listview;
-  private Cursor cursor;
-  private AllNotesAdapter trashAdapter;
   private Toolbar toolbar;
+  private TrashNotesAdapter pva;
+  private List<NoteModel> trashNotes;
+  private RecyclerView rcv;
+  private GridLayoutManager layoutManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_trash_list_activiy);
+    setContentView(R.layout.activity_main);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setVisibility(View.GONE);
+
+    DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
@@ -52,15 +58,16 @@ public class TrashListActiviy extends AppCompatActivity {
     });
     getSupportActionBar().setTitle("Trash");
 
-    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
-    cursor = NoteModel.fetchResults(1);
-    trashAdapter = new AllNotesAdapter(this, cursor);
-    this.listview = (DynamicListView) findViewById(R.id.dynamiclistview);
-    AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(trashAdapter);
-    animationAdapter.setAbsListView(listview);
-    listview.setAdapter(animationAdapter);
+    trashNotes = NoteModel.fetchNotes(1);
+    setView();
+    pva =  new TrashNotesAdapter(NoteModel.fetchNotes(1));
 
-    toEmptyTrashRecords();
+    layoutManager = new GridLayoutManager(this,1);
+    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    rcv = (RecyclerView) findViewById(R.id.rv);
+    rcv.setLayoutManager(layoutManager);
+    rcv.setHasFixedSize(true);
+    rcv.setAdapter(pva);
   }
 
   @Override
@@ -73,6 +80,7 @@ public class TrashListActiviy extends AppCompatActivity {
   public void onBackPressed() {
     Intent homeIntent = new Intent(this, AllNotesActivity.class);
     startActivity(homeIntent);
+    super.onBackPressed();
   }
 
   @Override
@@ -93,6 +101,7 @@ public class TrashListActiviy extends AppCompatActivity {
     builder.setPositiveButton("Empty", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+        trashNotes.clear();
         NoteModel.deleteRecords(1);
         dialog.dismiss();
         updateView();
@@ -108,37 +117,16 @@ public class TrashListActiviy extends AppCompatActivity {
     builder.show();
   }
 
-  private void toEmptyTrashRecords() {
-    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(TrashListActiviy.this);
-        builder.setTitle("What to do");
-        builder.setPositiveButton("Restore", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            NoteModel noteModel = NoteModel.load(NoteModel.class, id);
-            noteModel.trashId = 0;
-            noteModel.save();
-            updateView();
-          }
-        });
-        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            NoteModel noteModel = NoteModel.load(NoteModel.class, id);
-            noteModel.delete();
-            updateView();
-          }
-        });
-        builder.create();
-        builder.show();
-      }
-    });
+  private void updateView() {
+    setView();
+    layoutManager.requestLayout();
+    pva.notifyDataSetChanged();
   }
 
-  private void updateView() {
-    cursor.requery();
-    trashAdapter.notifyDataSetChanged();
+  private void setView() {
+    if(trashNotes.size() < 1) {
+      LinearLayout layout = (LinearLayout) findViewById(R.id.noNoteLayout);
+      layout.setVisibility(View.VISIBLE);
+    }
   }
 }
