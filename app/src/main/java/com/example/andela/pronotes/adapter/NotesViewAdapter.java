@@ -2,10 +2,13 @@ package com.example.andela.pronotes.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,13 +22,14 @@ import com.example.andela.pronotes.activities.CreateNewNote;
 import com.example.andela.pronotes.activities.ReadNoteActivity;
 import com.example.andela.pronotes.model.NoteModel;
 import com.example.andela.pronotes.utils.ViewConstants;
+import com.vstechlab.easyfonts.EasyFonts;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
 /**
- * Created by andela on 2/22/16.
+ * Created by Chidi on 2/22/16.
  */
 public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.PlayViewHolder> {
 
@@ -50,7 +54,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     holder.title.setText(notes.get(position).note_title);
     holder.date.setText(notes.get(position).currentTime);
 
-
   }
 
   @Override
@@ -63,7 +66,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     return notes.size();
   }
 
-  public  class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+  public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     private CardView cardView;
     private TextView title;
@@ -72,6 +75,8 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     private Context context;
     private ActionMode actionMode;
     private long itemId;
+    private SharedPreferences preferences;
+
 
 
 
@@ -84,6 +89,48 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       date = (TextView) itemView.findViewById(R.id.listDate);
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
+
+      setFontType(title, "titleFontType");
+      setFontType(message,"bodyFontType");
+    }
+
+    public void setFontType(TextView view, String font) {
+      preferences = PreferenceManager.getDefaultSharedPreferences(context);
+      String fontType = preferences.getString(font, "no selection");
+      switch (fontType) {
+        case "RobotoMedium":
+          view.setTypeface(EasyFonts.robotoMedium(context));
+          break;
+        case "Funraiser":
+          view.setTypeface(EasyFonts.funRaiser(context));
+          break;
+        case "Ostrichbold":
+          view.setTypeface(EasyFonts.ostrichBold(context));
+          break;
+        case "RobotoBlack":
+          view.setTypeface(EasyFonts.robotoBlack(context));
+          break;
+        case "DroidSerifItalic":
+          view.setTypeface(EasyFonts.droidSerifItalic(context));
+          break;
+        case "DroidSerifRegular":
+          view.setTypeface(EasyFonts.droidSerifRegular(context));
+          break;
+        case "Tangerinebold":
+          view.setTypeface(EasyFonts.tangerineBold(context));
+          break;
+        case "Windsong":
+          view.setTypeface(EasyFonts.windSong(context));
+          break;
+        case "CavierDreams":
+          view.setTypeface(EasyFonts.caviarDreams(context));
+          break;
+        case "CaptureIt":
+          view.setTypeface(EasyFonts.captureIt(context));
+          break;
+        default:
+          view.setTypeface(EasyFonts.ostrichBold(context));
+      }
     }
 
     @Override
@@ -150,7 +197,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       }
 
     };
-
   }
 
 }

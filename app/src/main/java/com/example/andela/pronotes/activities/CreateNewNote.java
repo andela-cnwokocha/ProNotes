@@ -56,9 +56,12 @@ public class CreateNewNote extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     noteFromBundle(extras);
 
-    note.setTypeface(EasyFonts.cac_champagne(this));
-    noteTitle.setTypeface(EasyFonts.tangerineBold(this));
-    notebookCategory.setTypeface(EasyFonts.robotoBoldItalic(this));
+    //note.setTypeface(EasyFonts.cac_champagne(this));
+    note.setTypeface(EasyFonts.robotoBoldItalic(this));
+    //noteTitle.setTypeface(EasyFonts.tangerineBold(this));
+    noteTitle.setTypeface(EasyFonts.robotoBold(this));
+    //notebookCategory.setTypeface(EasyFonts.robotoBoldItalic(this));
+    notebookCategory.setTypeface(EasyFonts.robotoItalic(this));
 
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);

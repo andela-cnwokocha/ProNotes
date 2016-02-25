@@ -40,24 +40,29 @@
             android:layout_height="wrap_content"
             android:hint="@string/notebook_name"
             android:textStyle="bold"
+            android:layout_weight="0"
             android:inputType="textCapSentences"
             android:id="@+id/create_note_notebook"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
+            android:inputType="textCapSentences|textMultiLine"
+            android:layout_weight="0"
             android:hint="@string/note_title"
+            android:maxLines="3"
             android:textStyle="bold"
             android:id="@+id/note_title"/>
 
         <com.example.andela.pronotes.utils.LinedEditTextView
             android:id="@+id/createnotebook_line"
             android:layout_width="match_parent"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:capitalize="sentences"
             android:gravity="top"
             android:hint="@string/note_content"
+            android:textStyle="bold"
             android:imeActionLabel="@string/save_text"
             android:inputType="textCapSentences|textMultiLine"
             android:scrollbars="vertical"

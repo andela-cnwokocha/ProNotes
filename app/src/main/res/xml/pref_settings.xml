@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-        <PreferenceCategory
-            android:title="Autosave note">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Autosave note">
 
-            <CheckBoxPreference
-                android:key="autosave"
-                android:title="Enable Autosave"
-                android:summary="Save notes automatically while typing"
-                android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="autosave"
+            android:title="Enable Autosave"
+            android:summary="Save notes automatically while typing"
+            android:defaultValue="false"/>
+        <!--<SwitchPreference
+            android:key="switch"
+            android:title="Enable audio"
+            android:summary="Play notification sound"/>-->
 
-            <EditTextPreference
-                android:key="autosaveRate"
-                android:dependency="autosave"
-                android:layout="?android:attr/preferenceLayoutChild"
-                android:title="Enter seconds"
-                android:summary="Rate notes are autosaved"
-                android:inputType="number"
-                android:defaultValue="2"
-                android:dialogTitle="Enter the rate (in seconds) to autosave notes" />
-        </PreferenceCategory>
+        <EditTextPreference
+            android:key="autosaveRate"
+            android:dependency="autosave"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:title="Enter seconds"
+            android:summary="Rate notes are autosaved"
+            android:inputType="number"
+            android:defaultValue="2"
+            android:dialogTitle="Enter the rate (in seconds) to autosave notes" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Title and Body font settings">
+        <ListPreference
+            android:key="titleFontType"
+            android:title="Title Font type"
+            android:dialogTitle="Select font"
+            android:entries="@array/title_entries"
+            android:entryValues="@array/title_value"/>
+
+        <ListPreference
+            android:key="bodyFontType"
+            android:title="Body Font type"
+            android:dialogTitle="Select font"
+            android:entries="@array/body_entries"
+            android:entryValues="@array/body_value"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>
+
+
+
+
+
+

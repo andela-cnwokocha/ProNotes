@@ -5,6 +5,7 @@ package com.example.andela.pronotes.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ public class SettingsFragment extends PreferenceFragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.pref_settings);
+
     listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
       @Override
       public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -30,6 +32,10 @@ public class SettingsFragment extends PreferenceFragment {
           findPreference("autosaveRate").setSummary(sharedPreferences.getString("autosaveRate", "2"));
         } else if (key.equals("autosaveRate")) {
           findPreference(key).setSummary(sharedPreferences.getString(key, "2"));
+        } else if (key.equals("titleFontType")) {
+          findPreference(key).setSummary(sharedPreferences.getString("titleFontType", "no selection"));
+        } else if (key.equals("bodyFontType")){
+          findPreference(key).setSummary(sharedPreferences.getString("bodyFontType", "no selection"));
         }
       }
     };
@@ -42,13 +48,11 @@ public class SettingsFragment extends PreferenceFragment {
     getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(listener);
   }
 
-
   @Override
   public void onPause() {
     super.onPause();
     getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(listener);
   }
-
 
 
 }
