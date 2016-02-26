@@ -3,97 +3,48 @@ package com.example.andela.pronotes.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.activities.TrashListActiviy;
 import com.example.andela.pronotes.model.NoteModel;
 
-import java.text.SimpleDateFormat;
+
 import java.util.List;
 
 /**
  * Created by andela on 2/9/16.
  */
-/*public class TrashNotesAdapter extends CursorAdapter {
-  public TrashNotesAdapter(Context context, Cursor cursor) {
-    super(context, cursor, 0);
-  }
 
-  @Override
-  public View newView(Context context, Cursor cursor, ViewGroup parent) {
-    return LayoutInflater.from(context).inflate(R.layout.note_list, parent, false);
-  }
-
-  @Override
-  public void bindView(View view, Context context, Cursor cursor) {
-    TextView title = (TextView) view.findViewById(R.id.listTitle);
-    TextView date = (TextView) view.findViewById(R.id.listDate);
-    TextView brief = (TextView) view.findViewById(R.id.listSomeMessage);
-
-    String bodyTitle = cursor.getString(cursor.getColumnIndexOrThrow("Note_book_titles")).trim();
-    String bookDate = cursor.getString(cursor.getColumnIndexOrThrow("Modified_time")).trim();
-    String bookBrief = cursor.getString(cursor.getColumnIndexOrThrow("Note_text")).trim();
-    if(bookBrief.length() > 60) {
-      bookBrief = bookBrief.substring(0, 60).concat(" ...");
-    }
-
-    title.setText(bodyTitle);
-    date.setText(bookDate);
-    brief.setText(bookBrief);
-  }
-}*/
-
-
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.activities.CreateNewNote;
-import com.example.andela.pronotes.activities.ReadNoteActivity;
-import com.example.andela.pronotes.model.NoteModel;
 import com.example.andela.pronotes.utils.FontManager;
-import com.example.andela.pronotes.utils.ViewConstants;
 import com.vstechlab.easyfonts.EasyFonts;
-
-import org.parceler.Parcels;
-
-import java.util.List;
 
 /**
  * Created by Chidi on 2/22/16.
  */
 public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.PlayViewHolder> {
-
   private static List<NoteModel> notes;
   private View viewing;
+  private LinearLayout layout;
+  private GridLayoutManager layoutManager;
 
-  public TrashNotesAdapter(List<NoteModel> noteModels) {
+  public TrashNotesAdapter(List<NoteModel> noteModels, LinearLayout layout, GridLayoutManager layoutManager) {
     this.notes = noteModels;
+    this.layout = layout;
+    this.layoutManager = layoutManager;
   }
-
 
   @Override
   public PlayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -107,7 +58,6 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     holder.message.setText(notes.get(position).note_text);
     holder.title.setText(notes.get(position).note_title);
     holder.date.setText(notes.get(position).currentTime);
-
   }
 
   @Override
@@ -120,9 +70,7 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     return notes.size();
   }
 
-
   public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, FontManager {
-
     private CardView cardView;
     private TextView title;
     private TextView message;
@@ -131,9 +79,6 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     private ActionMode actionMode;
     private long itemId;
     private SharedPreferences preferences;
-
-
-
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -213,6 +158,9 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
           noteModel.delete();
           notes.remove(pos);
           notifyItemRemoved(pos);
+          setView();
+          layoutManager.requestLayout();
+          Log.i("Vuvow", "Checking view");
           notifyDataSetChanged();
           Snackbar.make(view,"Note Deleted", Snackbar.LENGTH_LONG).show();
         }
@@ -220,6 +168,12 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
       builder.create();
       builder.show();
     }
-  }
 
+    private void setView() {
+      if (notes.size() < 1) {
+        layout.setVisibility(View.VISIBLE);
+        Log.i("Vuvow_finally", "Checking view");
+      }
+    }
+  }
 }

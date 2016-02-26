@@ -64,7 +64,7 @@ public class CreateNewNote extends AppCompatActivity {
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     autoSaveNotebook = preferences.getBoolean("autosave", false);
 
-    if(autoSaveNotebook) {
+    if (autoSaveNotebook) {
       repeatRate = getUpdateRate();
     }
     setAutoSave();
@@ -72,7 +72,7 @@ public class CreateNewNote extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    if(isNoteProvided()) {
+    if (isNoteProvided()) {
       saveNoteToDb();
       autoSaveHandler.removeCallbacks(runAutoSave);
       Intent allNotes = new Intent(this, AllNotesActivity.class);
@@ -98,7 +98,7 @@ public class CreateNewNote extends AppCompatActivity {
 
   private void saveNoteToDb() {
     NoteModel noteModel = new NoteModel();
-    if(isFromEdit) {
+    if (isFromEdit) {
       noteModel = NoteModel.load(NoteModel.class, noteId);
     }
     noteModel.currentTime = getLogTime();
@@ -151,7 +151,7 @@ public class CreateNewNote extends AppCompatActivity {
   Runnable runAutoSave = new Runnable() {
     @Override
     public void run() {
-      if(isNoteProvided()) {
+      if (isNoteProvided()) {
         saveNoteToDb();
       }
       autoSaveHandler.postDelayed(this, 1000 * repeatRate);
@@ -162,12 +162,13 @@ public class CreateNewNote extends AppCompatActivity {
     this.note.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus && autoSaveNotebook) {
+        if (hasFocus && autoSaveNotebook) {
           runAutoSave.run();
         }
       }
     });
   }
+
   private void noteFromBundle(Bundle extras) {
     if (extras != null) {
       noteId = extras.getLong("NoteId");
@@ -176,8 +177,7 @@ public class CreateNewNote extends AppCompatActivity {
       noteTitle.setText(note.note_title);
       this.note.setText(note.note_text);
       isFromEdit = true;
-
-      if(note.note_title.length() > 0) {
+      if (note.note_title.length() > 0) {
         setTitle(note.note_title);
       } else {
         setTitle("Untitled");
@@ -194,15 +194,14 @@ public class CreateNewNote extends AppCompatActivity {
     super.onStop();
     autoSaveHandler.removeCallbacks(runAutoSave);
   }
+
   protected void onPause() {
     super.onPause();
     autoSaveHandler.removeCallbacks(runAutoSave);
   }
 
-
   private int getUpdateRate() {
     int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "2"));
     return (updaterate > 0.5 ? updaterate : 2);
   }
-
 }

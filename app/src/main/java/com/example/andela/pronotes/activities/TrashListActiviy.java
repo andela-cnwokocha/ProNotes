@@ -3,6 +3,7 @@ package com.example.andela.pronotes.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,33 +16,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.adapter.TrashNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
 public class TrashListActiviy extends AppCompatActivity {
-
   private Toolbar toolbar;
   private TrashNotesAdapter pva;
   private List<NoteModel> trashNotes;
   private RecyclerView rcv;
   private GridLayoutManager layoutManager;
+  private LinearLayout layout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabbutt);
     fab.setVisibility(View.GONE);
-
     DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -58,11 +62,12 @@ public class TrashListActiviy extends AppCompatActivity {
     });
     getSupportActionBar().setTitle("Trash");
 
+    layout = (LinearLayout) findViewById(R.id.noNoteLayout);
     trashNotes = NoteModel.fetchNotes(1);
+    layoutManager = new GridLayoutManager(this, 1);
     setView();
-    pva =  new TrashNotesAdapter(NoteModel.fetchNotes(1));
-
-    layoutManager = new GridLayoutManager(this,1);
+    pva = new TrashNotesAdapter(NoteModel.fetchNotes(1), layout, layoutManager);
+    layoutManager = new GridLayoutManager(this, 1);
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     rcv = (RecyclerView) findViewById(R.id.rv);
     rcv.setLayoutManager(layoutManager);
@@ -124,8 +129,12 @@ public class TrashListActiviy extends AppCompatActivity {
   }
 
   private void setView() {
-    if(trashNotes.size() < 1) {
+    if (trashNotes.size() < 1) {
       LinearLayout layout = (LinearLayout) findViewById(R.id.noNoteLayout);
+      Button button = (Button) findViewById(R.id.noNote);
+      TextView label = (TextView) findViewById(R.id.noNote_text);
+      label.setText(R.string.trashed_notice);
+      button.setVisibility(View.GONE);
       layout.setVisibility(View.VISIBLE);
     }
   }

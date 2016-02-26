@@ -25,13 +25,10 @@ import android.support.v7.widget.SearchView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.model.NoteModel;
-
 import java.util.List;
-
 
 public class AllNotesActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
-
   private List<NoteModel> notes;
   private NotesViewAdapter pva;
   private Toolbar toolbar;
@@ -39,13 +36,10 @@ public class AllNotesActivity extends AppCompatActivity
   private RecyclerView rcv;
   private GridLayoutManager llm;
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_main);
-
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
     setUpNavigation();
@@ -62,12 +56,10 @@ public class AllNotesActivity extends AppCompatActivity
     });
     notes = NoteModel.fetchNotes(0);
     setView();
-
     rcv = (RecyclerView) findViewById(R.id.rv);
 
     SharedPreferences preferences = this.getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
     int span = preferences.getInt("spancount", 1);
-
     llm = new GridLayoutManager(this,span);
     llm.setOrientation(LinearLayoutManager.VERTICAL);
     rcv.setLayoutManager(llm);
@@ -76,7 +68,6 @@ public class AllNotesActivity extends AppCompatActivity
     rcv.setAdapter(pva);
 
     addNewNote();
-
   }
 
   @Override
@@ -111,7 +102,7 @@ public class AllNotesActivity extends AppCompatActivity
     } else if (id == R.id.layout) {
       SharedPreferences prefs = getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
       SharedPreferences.Editor editor = prefs.edit();
-      if(llm.getSpanCount() == 1) {
+      if (llm.getSpanCount() == 1) {
         editor.putInt("spancount", 2);
         llm.setSpanCount(2);
         llm.requestLayout();
@@ -135,15 +126,10 @@ public class AllNotesActivity extends AppCompatActivity
     }
   }
 
-  @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     int id = item.getItemId();
-
-   if (id == R.id.nav_notebooks) {
-      Intent allNotesIntent = new Intent(this, AllNotesActivity.class);
-      startActivity(allNotesIntent);
-    } else if (id == R.id.nav_settings) {
+    if (id == R.id.nav_settings) {
       Intent settingsIntent = new Intent(this, Settings.class);
       startActivity(settingsIntent);
     } else if (id == R.id.nav_trash) {
@@ -168,7 +154,7 @@ public class AllNotesActivity extends AppCompatActivity
   }
 
   private void addNewNote() {
-    FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.fabbutt);
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -178,8 +164,7 @@ public class AllNotesActivity extends AppCompatActivity
   }
 
   private void setView() {
-
-    if(notes.size() < 1) {
+    if (notes.size() < 1) {
       LinearLayout layout = (LinearLayout) findViewById(R.id.noNoteLayout);
       layout.setVisibility(View.VISIBLE);
     }
@@ -196,5 +181,4 @@ public class AllNotesActivity extends AppCompatActivity
     Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
     startActivity(createNoteIntent);
   }
-
 }

@@ -1,9 +1,6 @@
 package com.example.andela.pronotes.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,4 +27,8 @@ public class Settings extends AppCompatActivity {
          .replace(R.id.preference_area, new SettingsFragment()).commit();
   }
 
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+  }
 }

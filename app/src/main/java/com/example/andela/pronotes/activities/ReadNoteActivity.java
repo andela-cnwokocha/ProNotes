@@ -25,7 +25,6 @@ import com.vstechlab.easyfonts.EasyFonts;
 import org.parceler.Parcels;
 
 public class ReadNoteActivity extends AppCompatActivity implements FontManager {
-
   private FloatingActionButton fab;
   private ShareActionProvider sharer;
   private NoteModel note;
@@ -53,7 +52,6 @@ public class ReadNoteActivity extends AppCompatActivity implements FontManager {
     });
     getSupportActionBar().setTitle("Pronote");
 
-
     note = Parcels.unwrap(getIntent().getParcelableExtra("Note"));
     contentView = (TextView) findViewById(R.id.note_read);
     notetitle = (TextView) findViewById(R.id.note_title);
@@ -66,7 +64,7 @@ public class ReadNoteActivity extends AppCompatActivity implements FontManager {
     notetitle.setText(note.note_title);
     noteId = Parcels.unwrap(getIntent().getParcelableExtra("ID"));
 
-    fab = (FloatingActionButton) findViewById(R.id.fab);
+    fab = (FloatingActionButton) findViewById(R.id.fabread);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

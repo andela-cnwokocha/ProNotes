@@ -33,14 +33,12 @@ import java.util.List;
  * Created by Chidi on 2/22/16.
  */
 public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.PlayViewHolder> {
-
   private static List<NoteModel> notes;
   private View viewing;
 
   public NotesViewAdapter(List<NoteModel> noteModels) {
     this.notes = noteModels;
   }
-
 
   @Override
   public PlayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,7 +52,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     holder.message.setText(notes.get(position).note_text);
     holder.title.setText(notes.get(position).note_title);
     holder.date.setText(notes.get(position).currentTime);
-
   }
 
   @Override
@@ -67,10 +64,8 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     return notes.size();
   }
 
-
   public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
       View.OnLongClickListener, FontManager {
-
     private CardView cardView;
     private TextView title;
     private TextView message;
@@ -79,9 +74,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     private ActionMode actionMode;
     private long itemId;
     private SharedPreferences preferences;
-
-
-
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -147,10 +139,9 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       context.startActivity(readNoteIntent);
     }
 
-
     @Override
     public boolean onLongClick(View v) {
-      if(actionMode != null) {
+      if (actionMode != null) {
         return true;
       }
       int pos = getLayoutPosition();
@@ -189,6 +180,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
             trash.save();
             notes.remove(getLayoutPosition());
             notifyItemRemoved(getLayoutPosition());
+            notifyDataSetChanged();
             mode.finish();
           default:
             return false;
@@ -199,8 +191,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       public void onDestroyActionMode(ActionMode mode) {
         actionMode = null;
       }
-
     };
   }
-
 }
