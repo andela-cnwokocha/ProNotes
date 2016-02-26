@@ -37,87 +37,16 @@ tools:openDrawer="start">
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:visibility="gone"
             android:id="@+id/noNoteLayout"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto1"
-                android:text="A"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto2"
-                android:text="B"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto3"
-                android:text="C"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto4"
-                android:text="D"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto5"
-                android:text="E"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto6"
-                android:text="F"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto7"
-                android:text="G"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto8"
-                android:text="H"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto9"
-                android:text="I"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto10"
-                android:text="J"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto11"
-                android:text="K"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/roboto12"
-                android:text="L"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/noNote_button"
                 android:layout_gravity="center"
                 android:id="@+id/noNote"
-                android:textColor="@color/textColorSecondary"/>
+                android:text="@string/trashEmpty"/>
         </LinearLayout>
 
         <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
