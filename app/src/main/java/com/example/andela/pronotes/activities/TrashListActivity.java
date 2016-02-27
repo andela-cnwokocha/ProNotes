@@ -3,7 +3,6 @@ package com.example.andela.pronotes.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,24 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
 import com.example.andela.pronotes.R;
-import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.adapter.TrashNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
-public class TrashListActiviy extends AppCompatActivity {
+public class TrashListActivity extends AppCompatActivity {
   private Toolbar toolbar;
   private TrashNotesAdapter pva;
   private List<NoteModel> trashNotes;
@@ -100,7 +93,7 @@ public class TrashListActiviy extends AppCompatActivity {
   }
 
   public void emptyTrash() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(TrashListActiviy.this);
+    AlertDialog.Builder builder = new AlertDialog.Builder(TrashListActivity.this);
     builder.setTitle("Empty Trash");
     builder.setMessage("Are you sure you want to empty trash?");
     builder.setPositiveButton("Empty", new DialogInterface.OnClickListener() {
