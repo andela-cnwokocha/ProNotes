@@ -6,6 +6,7 @@ package com.example.andela.pronotes;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.widget.EditText;
 
 import com.example.andela.pronotes.activities.AllNotesActivity;
 import com.example.andela.pronotes.activities.CreateNewNote;
@@ -53,6 +54,15 @@ public class CreateNoteTest {
     assertTrue(activityShadow.getNextStartedActivity().equals(expectedIntent));
   }
 
+  @Test
+  public void testThatHintsAreDisplayed() {
+    EditText category = (EditText) createNewNote.findViewById(R.id.create_note_notebook);
+    assertTrue(category.getHint().equals("Notebook Name"));
+    EditText title = (EditText) createNewNote.findViewById(R.id.note_title);
+    assertTrue(title.getHint().equals("Note Title"));
+    EditText content = (EditText) createNewNote.findViewById(R.id.createnotebook_line);
+    assertTrue(content.getHint().equals("Write"));
+  }
 
   @After
   public void tearDown() {
