@@ -65,4 +65,9 @@ public class AllNotesTest {
     pressBack();
   }
 
+  @Test
+  public void testSearchingNote() {
+
+  }
+
 }
