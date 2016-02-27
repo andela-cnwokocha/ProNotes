@@ -97,7 +97,7 @@ public class AllNotesActivity extends AppCompatActivity
     for (NoteModel note: noteModels) {
       final String noteContent = note.note_text.toLowerCase();
       final String noteTitle = note.note_title.toLowerCase();
-      if (noteContent.contains(query)) {
+      if (noteContent.contains(query) | noteTitle.contains(query)) {
         filteredList.add(note);
       }
     }
