@@ -9,13 +9,6 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.view.View;
-
-import com.example.andela.pronotes.activities.AllNotesActivity;
-
-import junit.framework.AssertionFailedError;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -31,7 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static org.hamcrest.Matchers.not;
 
-import com.example.andela.pronotes.activities.TrashListActiviy;
+import com.example.andela.pronotes.activities.TrashListActivity;
 
 /**
  * Created by andela on 2/26/16.
@@ -39,7 +32,7 @@ import com.example.andela.pronotes.activities.TrashListActiviy;
 public class TrashNotesTest {
 
   @Rule
-  public ActivityTestRule<TrashListActiviy> trashlistTest = new ActivityTestRule<>(TrashListActiviy.class);
+  public ActivityTestRule<TrashListActivity> trashlistTest = new ActivityTestRule<>(TrashListActivity.class);
 
   @Test
   public void testRestoreFromTrash() {
