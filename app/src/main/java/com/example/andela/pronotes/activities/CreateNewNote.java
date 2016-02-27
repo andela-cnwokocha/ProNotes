@@ -6,12 +6,18 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
@@ -67,6 +73,21 @@ public class CreateNewNote extends AppCompatActivity {
       repeatRate = getUpdateRate();
     }
     setAutoSave();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.createnote_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if(id == R.id.note_lock) {
+      Toast.makeText(this, "Oh lovely", Toast.LENGTH_LONG).show();
+    }
+    return true;
   }
 
   @Override
