@@ -35,9 +35,11 @@ import java.util.List;
 public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.PlayViewHolder> {
   private static List<NoteModel> notes;
   private View viewing;
+  private LayoutInflater inflater;
 
-  public NotesViewAdapter(List<NoteModel> noteModels) {
-    this.notes = noteModels;
+  public NotesViewAdapter( List<NoteModel> noteModels) {
+    notes = noteModels;
+
   }
 
   @Override

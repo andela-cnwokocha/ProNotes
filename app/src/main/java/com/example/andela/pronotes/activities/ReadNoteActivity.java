@@ -57,9 +57,10 @@ public class ReadNoteActivity extends AppCompatActivity implements FontManager {
     notetitle = (TextView) findViewById(R.id.note_title);
 
     setFontType(notetitle, "titleFontType");
-    setFontType(contentView,"bodyFontType");
+    setFontType(contentView, "bodyFontType");
 
     getSupportActionBar().setTitle(note.noteBook);
+    getSupportActionBar().setTitle("Test Title");
     contentView.setText(note.note_text);
     notetitle.setText(note.note_title);
     noteId = Parcels.unwrap(getIntent().getParcelableExtra("ID"));

@@ -25,6 +25,8 @@ import android.support.v7.widget.SearchView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllNotesActivity extends AppCompatActivity
@@ -77,14 +79,29 @@ public class AllNotesActivity extends AppCompatActivity
     final MenuItem item = menu.findItem(R.id.action_search);
     final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
     searchView.setOnQueryTextListener(this);
-
     return true;
   }
 
   @Override
   public boolean onQueryTextChange(String query) {
-    // Here is where we are going to implement our filter logic
-    return false;
+    final List<NoteModel> modelsFiltered = filter(notes, query);
+    pva = new NotesViewAdapter(modelsFiltered);
+    rcv.setAdapter(pva);
+    pva.notifyDataSetChanged();
+    return true;
+  }
+
+  private List<NoteModel> filter(List<NoteModel> noteModels, String query) {
+    query = query.toLowerCase();
+    final List<NoteModel> filteredList = new ArrayList<>();
+    for (NoteModel note: noteModels) {
+      final String noteContent = note.note_text.toLowerCase();
+      final String noteTitle = note.note_title.toLowerCase();
+      if (noteContent.contains(query)) {
+        filteredList.add(note);
+      }
+    }
+    return filteredList;
   }
 
   @Override
@@ -96,8 +113,9 @@ public class AllNotesActivity extends AppCompatActivity
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.action_settings) {
-      Intent settingsIntent = new Intent(this, Settings.class);
+      Intent settingsIntent = new Intent(this, SettingActivity.class);
       startActivity(settingsIntent);
+
       return true;
     } else if (id == R.id.layout) {
       SharedPreferences prefs = getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
@@ -130,11 +148,11 @@ public class AllNotesActivity extends AppCompatActivity
   public boolean onNavigationItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.nav_settings) {
-      Intent settingsIntent = new Intent(this, Settings.class);
+      Intent settingsIntent = new Intent(this, SettingActivity.class);
       startActivity(settingsIntent);
     } else if (id == R.id.nav_trash) {
-      Intent trashIntent = new Intent(this, TrashListActiviy.class);
-     startActivity(trashIntent);
+      Intent trashIntent = new Intent(this, TrashListActivity.class);
+      startActivity(trashIntent);
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -180,5 +198,11 @@ public class AllNotesActivity extends AppCompatActivity
   private void startCreateNote() {
     Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
     startActivity(createNoteIntent);
+  }
+  private Intent getActivityIntent(AppCompatActivity activity) {
+    return new Intent(this, activity.getClass());
+  }
+  private void startActivityIntent(AppCompatActivity appCompatActivity) {
+    startActivity(getActivityIntent(appCompatActivity));
   }
 }

@@ -56,7 +56,6 @@ public class CreateNewNote extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     noteFromBundle(extras);
 
-
     notebookCategory.setTypeface(EasyFonts.robotoBoldItalic(this));
     noteTitle.setTypeface(EasyFonts.robotoBold(this));
     note.setTypeface(EasyFonts.robotoItalic(this));

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.andela.pronotes.R;
 
-public class Settings extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
