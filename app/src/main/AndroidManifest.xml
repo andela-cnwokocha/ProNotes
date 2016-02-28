@@ -25,7 +25,7 @@
             android:label="@string/title_activity_trash"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activities.TrashListActiviy">
+        <activity android:name=".activities.TrashListActivity">
         </activity>
         <activity
             android:name=".activities.AllNotesActivity"
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Settings"
+            android:name=".activities.SettingActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme"
             android:configChanges="orientation|screenSize">
