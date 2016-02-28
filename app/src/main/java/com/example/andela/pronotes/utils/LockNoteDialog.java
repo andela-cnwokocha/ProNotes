@@ -1,17 +1,18 @@
 package com.example.andela.pronotes.utils;
 
 
-//import android.app.Dialog;
-import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
 
@@ -19,7 +20,7 @@ import com.example.andela.pronotes.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LockNoteDialog extends DialogFragment {
+public class LockNoteDialog extends DialogFragment implements TextView.OnEditorActionListener {
   private EditText password;
 
   public LockNoteDialog() {
@@ -48,9 +49,25 @@ public class LockNoteDialog extends DialogFragment {
     password = (EditText) view.findViewById(R.id.edittext_lock);
     String title = getArguments().getString("title", "Enter Password");
 
+    password.setOnEditorActionListener(this);
     getDialog().setTitle(title);
     password.requestFocus();
     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+  }
+
+  @Override
+  public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+    if (EditorInfo.IME_ACTION_DONE == actionId) {
+      NoteLockDialogListener lockDialogListener = (NoteLockDialogListener) getActivity();
+      lockDialogListener.onFinishPasswordEntry(password.getText().toString());
+      dismiss();
+      return true;
+    }
+    return false;
+  }
+
+  public interface NoteLockDialogListener {
+    void onFinishPasswordEntry(String password);
   }
 
 }

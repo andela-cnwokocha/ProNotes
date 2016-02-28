@@ -69,7 +69,7 @@ public class CreateNewNote extends AppCompatActivity {
       repeatRate = getUpdateRate();
     }
     setAutoSave();
-    showNoteLockDialog();
+    //showNoteLockDialog();
   }
 
   @Override
@@ -83,6 +83,7 @@ public class CreateNewNote extends AppCompatActivity {
     int id = item.getItemId();
     if(id == R.id.note_lock) {
       Toast.makeText(this, "Oh lovely", Toast.LENGTH_LONG).show();
+      showNoteLockDialog();
     }
     return true;
   }
