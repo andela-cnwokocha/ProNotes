@@ -1,18 +1,13 @@
 package com.example.andela.pronotes.activities;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.LockNoteDialog;
 import com.vstechlab.easyfonts.EasyFonts;
 
 import java.text.DateFormat;
@@ -73,6 +69,7 @@ public class CreateNewNote extends AppCompatActivity {
       repeatRate = getUpdateRate();
     }
     setAutoSave();
+    showNoteLockDialog();
   }
 
   @Override
@@ -223,5 +220,11 @@ public class CreateNewNote extends AppCompatActivity {
   private int getUpdateRate() {
     int updaterate = Integer.parseInt(preferences.getString("autosaveRate", "2"));
     return (updaterate > 0.5 ? updaterate : 2);
+  }
+
+  private void showNoteLockDialog() {
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Note Locker");
+    lockNoteDialog.show(fragmentManager, "notelock_dialog");
   }
 }

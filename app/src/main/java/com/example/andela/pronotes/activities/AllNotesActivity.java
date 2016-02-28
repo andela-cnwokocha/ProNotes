@@ -115,7 +115,6 @@ public class AllNotesActivity extends AppCompatActivity
     if (id == R.id.action_settings) {
       Intent settingsIntent = new Intent(this, SettingActivity.class);
       startActivity(settingsIntent);
-
       return true;
     } else if (id == R.id.layout) {
       SharedPreferences prefs = getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
