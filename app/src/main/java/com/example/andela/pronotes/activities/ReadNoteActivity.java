@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
 import com.example.andela.pronotes.utils.FontManager;
+import com.example.andela.pronotes.utils.IntentRunner;
 import com.vstechlab.easyfonts.EasyFonts;
 
 import org.parceler.Parcels;
@@ -69,9 +70,7 @@ public class ReadNoteActivity extends AppCompatActivity implements FontManager {
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent editNoteIntent = new Intent(ReadNoteActivity.this, CreateNewNote.class);
-        editNoteIntent.putExtra("NoteId", noteId);
-        startActivity(editNoteIntent);
+        IntentRunner.startIntentWithData(ReadNoteActivity.this, CreateNewNote.class, "NoteId", noteId);
       }
     });
   }

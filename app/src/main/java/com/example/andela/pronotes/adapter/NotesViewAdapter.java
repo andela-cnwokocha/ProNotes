@@ -22,6 +22,7 @@ import com.example.andela.pronotes.activities.CreateNewNote;
 import com.example.andela.pronotes.activities.ReadNoteActivity;
 import com.example.andela.pronotes.model.NoteModel;
 import com.example.andela.pronotes.utils.FontManager;
+import com.example.andela.pronotes.utils.IntentRunner;
 import com.example.andela.pronotes.utils.ViewConstants;
 import com.vstechlab.easyfonts.EasyFonts;
 
@@ -171,9 +172,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         switch (item.getItemId()) {
           case R.id.edit:
-            Intent editNoteIntent = new Intent(context, CreateNewNote.class);
-            editNoteIntent.putExtra("NoteId", itemId);
-            context.startActivity(editNoteIntent);
+            IntentRunner.startIntentWithData(context, CreateNewNote.class, "NoteId", itemId);
             mode.finish();
             return true;
           case R.id.trash_note:
@@ -188,7 +187,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
             return false;
         }
       }
-
       @Override
       public void onDestroyActionMode(ActionMode mode) {
         actionMode = null;
