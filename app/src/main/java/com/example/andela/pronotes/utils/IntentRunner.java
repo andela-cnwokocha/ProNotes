@@ -2,8 +2,6 @@ package com.example.andela.pronotes.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 /**
  * Created by andela on 2/29/16.
  */

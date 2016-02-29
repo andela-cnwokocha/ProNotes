@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.TrashNotesAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.IntentRunner;
 
 import java.util.List;
 
@@ -76,8 +77,7 @@ public class TrashListActivity extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    Intent homeIntent = new Intent(this, AllNotesActivity.class);
-    startActivity(homeIntent);
+    IntentRunner.startIntent(this, AllNotesActivity.class);
     super.onBackPressed();
   }
 

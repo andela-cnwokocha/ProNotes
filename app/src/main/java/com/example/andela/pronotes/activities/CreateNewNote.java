@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.IntentRunner;
 import com.example.andela.pronotes.utils.LockNoteDialog;
 import com.vstechlab.easyfonts.EasyFonts;
 
@@ -69,7 +70,6 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
       repeatRate = getUpdateRate();
     }
     setAutoSave();
-    //showNoteLockDialog();
   }
 
   @Override
@@ -82,7 +82,6 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if(id == R.id.note_lock) {
-      Toast.makeText(this, "Oh lovely", Toast.LENGTH_LONG).show();
       showNoteLockDialog();
     }
     return true;
@@ -92,14 +91,9 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
   public void onBackPressed() {
     if (isNoteProvided()) {
       saveNoteToDb();
-      autoSaveHandler.removeCallbacks(runAutoSave);
-      Intent allNotes = new Intent(this, AllNotesActivity.class);
-      startActivity(allNotes);
-    } else {
-      autoSaveHandler.removeCallbacks(runAutoSave);
-      Intent allNotes = new Intent(this, AllNotesActivity.class);
-      startActivity(allNotes);
     }
+    autoSaveHandler.removeCallbacks(runAutoSave);
+    IntentRunner.startIntent(this, AllNotesActivity.class);
   }
 
   @Override
