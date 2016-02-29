@@ -160,7 +160,6 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
           notifyItemRemoved(pos);
           setView();
           layoutManager.requestLayout();
-          Log.i("Vuvow", "Checking view");
           notifyDataSetChanged();
           Snackbar.make(view,"Note Deleted", Snackbar.LENGTH_LONG).show();
         }
@@ -172,7 +171,6 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     private void setView() {
       if (notes.size() < 1) {
         layout.setVisibility(View.VISIBLE);
-        Log.i("Vuvow_finally", "Checking view");
       }
     }
   }
