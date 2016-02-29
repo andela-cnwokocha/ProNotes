@@ -25,6 +25,7 @@ import android.support.v7.widget.SearchView;
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.adapter.NotesViewAdapter;
 import com.example.andela.pronotes.model.NoteModel;
+import com.example.andela.pronotes.utils.IntentRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,8 +114,7 @@ public class AllNotesActivity extends AppCompatActivity
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.action_settings) {
-      Intent settingsIntent = new Intent(this, SettingActivity.class);
-      startActivity(settingsIntent);
+      IntentRunner.startIntent(this, SettingActivity.class);
       return true;
     } else if (id == R.id.layout) {
       SharedPreferences prefs = getSharedPreferences("SPAN_COUNT", MODE_PRIVATE);
@@ -147,11 +147,9 @@ public class AllNotesActivity extends AppCompatActivity
   public boolean onNavigationItemSelected(MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.nav_settings) {
-      Intent settingsIntent = new Intent(this, SettingActivity.class);
-      startActivity(settingsIntent);
+      IntentRunner.startIntent(this, SettingActivity.class);
     } else if (id == R.id.nav_trash) {
-      Intent trashIntent = new Intent(this, TrashListActivity.class);
-      startActivity(trashIntent);
+      IntentRunner.startIntent(this, TrashListActivity.class);
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -195,13 +193,6 @@ public class AllNotesActivity extends AppCompatActivity
   }
 
   private void startCreateNote() {
-    Intent createNoteIntent = new Intent(AllNotesActivity.this, CreateNewNote.class);
-    startActivity(createNoteIntent);
-  }
-  private Intent getActivityIntent(AppCompatActivity activity) {
-    return new Intent(this, activity.getClass());
-  }
-  private void startActivityIntent(AppCompatActivity appCompatActivity) {
-    startActivity(getActivityIntent(appCompatActivity));
+    IntentRunner.startIntent(this, CreateNewNote.class);
   }
 }

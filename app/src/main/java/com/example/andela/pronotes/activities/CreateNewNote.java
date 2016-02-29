@@ -23,7 +23,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CreateNewNote extends AppCompatActivity {
+public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.NoteLockDialogListener {
   private EditText notebookCategory;
   private EditText noteTitle;
   private EditText note;
@@ -227,5 +227,10 @@ public class CreateNewNote extends AppCompatActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
     LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Note Locker");
     lockNoteDialog.show(fragmentManager, "notelock_dialog");
+  }
+
+  @Override
+  public void onFinishPasswordEntry(String password) {
+    Toast.makeText(this, "I gat you - "+ password, Toast.LENGTH_LONG).show();
   }
 }
