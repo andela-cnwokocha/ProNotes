@@ -2,29 +2,24 @@ package com.example.andela.pronotes.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andela.pronotes.R;
 import com.example.andela.pronotes.activities.CreateNewNote;
 import com.example.andela.pronotes.activities.ReadNoteActivity;
 import com.example.andela.pronotes.model.NoteModel;
-import com.example.andela.pronotes.utils.FontManager;
+import com.example.andela.pronotes.utils.FontMaker;
 import com.example.andela.pronotes.utils.IntentRunner;
 import com.example.andela.pronotes.utils.ViewConstants;
-import com.vstechlab.easyfonts.EasyFonts;
 
 import org.parceler.Parcels;
 
@@ -68,7 +63,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
   }
 
   public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-      View.OnLongClickListener, FontManager {
+      View.OnLongClickListener {
     private CardView cardView;
     private TextView title;
     private TextView message;
@@ -76,7 +71,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     private Context context;
     private ActionMode actionMode;
     private long itemId;
-    private SharedPreferences preferences;
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -88,48 +82,8 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
 
-      setFontType(title, "titleFontType");
-      setFontType(message,"bodyFontType");
-    }
-
-    @Override
-    public void setFontType(TextView view, String font) {
-      preferences = PreferenceManager.getDefaultSharedPreferences(context);
-      String fontType = preferences.getString(font, "no selection");
-      switch (fontType) {
-        case "RobotoMedium":
-          view.setTypeface(EasyFonts.robotoMedium(context));
-          break;
-        case "Funraiser":
-          view.setTypeface(EasyFonts.funRaiser(context));
-          break;
-        case "Ostrichbold":
-          view.setTypeface(EasyFonts.ostrichBold(context));
-          break;
-        case "RobotoBlack":
-          view.setTypeface(EasyFonts.robotoBlack(context));
-          break;
-        case "DroidSerifItalic":
-          view.setTypeface(EasyFonts.droidSerifItalic(context));
-          break;
-        case "DroidSerifRegular":
-          view.setTypeface(EasyFonts.droidSerifRegular(context));
-          break;
-        case "Tangerinebold":
-          view.setTypeface(EasyFonts.tangerineBold(context));
-          break;
-        case "Windsong":
-          view.setTypeface(EasyFonts.windSong(context));
-          break;
-        case "CavierDreams":
-          view.setTypeface(EasyFonts.caviarDreams(context));
-          break;
-        case "CaptureIt":
-          view.setTypeface(EasyFonts.captureIt(context));
-          break;
-        default:
-          view.setTypeface(EasyFonts.ostrichBold(context));
-      }
+      FontMaker.selectFontType(title, "titleFontType", context);
+      FontMaker.selectFontType(message, "bodyFontType", context);
     }
 
     @Override

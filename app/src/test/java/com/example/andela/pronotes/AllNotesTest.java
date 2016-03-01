@@ -84,7 +84,7 @@ public class AllNotesTest {
   @Test
   public void testDrawerLayoutTrashOption() {
     assertNotNull(drawerLayout);
-    MenuItem trashmenu = new RoboMenuItem(R.id.nav_settings);
+    MenuItem trashmenu = new RoboMenuItem(R.id.nav_trash);
     assertNotNull(trashmenu);
 
     Intent trashIntent = new Intent(allNotesActivity, TrashListActivity.class);

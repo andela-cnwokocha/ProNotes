@@ -6,10 +6,10 @@ import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,13 +23,9 @@ import java.util.List;
  * Created by andela on 2/9/16.
  */
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
-import android.support.v7.view.ActionMode;
 
-import com.example.andela.pronotes.utils.FontManager;
-import com.vstechlab.easyfonts.EasyFonts;
+import com.example.andela.pronotes.utils.FontMaker;
 
 /**
  * Created by Chidi on 2/22/16.
@@ -70,15 +66,12 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     return notes.size();
   }
 
-  public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, FontManager {
+  public class PlayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private CardView cardView;
     private TextView title;
     private TextView message;
     private TextView date;
     private Context context;
-    private ActionMode actionMode;
-    private long itemId;
-    private SharedPreferences preferences;
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -89,48 +82,8 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
       date = (TextView) itemView.findViewById(R.id.listDate);
       itemView.setOnClickListener(this);
 
-      setFontType(title, "titleFontType");
-      setFontType(message,"bodyFontType");
-    }
-
-    @Override
-    public void setFontType(TextView view, String font) {
-      preferences = PreferenceManager.getDefaultSharedPreferences(context);
-      String fontType = preferences.getString(font, "no selection");
-      switch (fontType) {
-        case "RobotoMedium":
-          view.setTypeface(EasyFonts.robotoMedium(context));
-          break;
-        case "Funraiser":
-          view.setTypeface(EasyFonts.funRaiser(context));
-          break;
-        case "Ostrichbold":
-          view.setTypeface(EasyFonts.ostrichBold(context));
-          break;
-        case "RobotoBlack":
-          view.setTypeface(EasyFonts.robotoBlack(context));
-          break;
-        case "DroidSerifItalic":
-          view.setTypeface(EasyFonts.droidSerifItalic(context));
-          break;
-        case "DroidSerifRegular":
-          view.setTypeface(EasyFonts.droidSerifRegular(context));
-          break;
-        case "Tangerinebold":
-          view.setTypeface(EasyFonts.tangerineBold(context));
-          break;
-        case "Windsong":
-          view.setTypeface(EasyFonts.windSong(context));
-          break;
-        case "CavierDreams":
-          view.setTypeface(EasyFonts.caviarDreams(context));
-          break;
-        case "CaptureIt":
-          view.setTypeface(EasyFonts.captureIt(context));
-          break;
-        default:
-          view.setTypeface(EasyFonts.ostrichBold(context));
-      }
+      FontMaker.selectFontType(title, "titleFontType", context);
+      FontMaker.selectFontType(message, "bodyFontType", context);
     }
 
     @Override
@@ -147,6 +100,7 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
           noteModel.save();
           notes.remove(pos);
           notifyItemRemoved(pos);
+          setView();
           notifyDataSetChanged();
           Snackbar.make(view,"Successfully restored note", Snackbar.LENGTH_LONG).show();
         }
@@ -171,6 +125,10 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     private void setView() {
       if (notes.size() < 1) {
         layout.setVisibility(View.VISIBLE);
+        TextView label = (TextView) layout.findViewById(R.id.noNote_text);
+        label.setText(R.string.trashed_notice);
+        Button button = (Button) layout.findViewById(R.id.noNote);
+        button.setVisibility(View.GONE);
       }
     }
   }
