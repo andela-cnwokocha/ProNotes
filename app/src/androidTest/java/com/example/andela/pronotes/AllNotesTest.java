@@ -51,7 +51,8 @@ public class AllNotesTest extends ActivityInstrumentationTestCase2<AllNotesActiv
   public void testClickingOnListItemToReadNoteAndEditNote() {
     onView(withId(R.id.rv))
         .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-    onView(withId(R.id.note_read)).check(matches(withText("Now we see how espresso works")));
+    onView(withId(R.id.note_read))
+        .check(matches(withText("Now we see how espresso works")));
     onView(withId(R.id.fabread))
         .perform(click());
     onView(withId(R.id.note_title))
@@ -59,6 +60,7 @@ public class AllNotesTest extends ActivityInstrumentationTestCase2<AllNotesActiv
         .check(matches(withText(containsString("Is All Done"))));
     ViewActions.closeSoftKeyboard();
     pressBack();
-
   }
+
+
 }
