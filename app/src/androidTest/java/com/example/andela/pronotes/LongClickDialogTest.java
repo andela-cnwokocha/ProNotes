@@ -18,11 +18,14 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
 
@@ -37,31 +40,23 @@ public class LongClickDialogTest {
   @Test
   public void testLongClickEditOption() {
     onView(withId(R.id.rv))
-        .perform(RecyclerViewActions.actionOnItemAtPosition(2, longClick()));
+        .perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
     onView(withId(R.id.edit))
         .perform(click());
     onView(withId(R.id.create_note_notebook))
-        .check(matches(withText("Borot")));
+        .check(matches(withText(containsString("the"))));
     onView(withId(R.id.note_title))
-        .check(matches(withText("Botor")));
+        .check(matches(withText(containsString("man"))));
     ViewActions.closeSoftKeyboard();
     pressBack();
   }
 
   @Test
   public void testLongClickDeleteOption() {
-    try {
-      onView(withText("Botor"))
-          .check(matches(isDisplayed()));
-      onView(withId(R.id.rv))
-          .perform(RecyclerViewActions.actionOnItemAtPosition(2, longClick()));
-      onView(withId(R.id.trash_note))
-          .perform(click());
-      onView(withText("Botor"))
-          .check(matches(not(isDisplayed())));
-    } catch (NoMatchingViewException nomatch) {
-      nomatch.printStackTrace();
-    }
+    onView(withId(R.id.rv))
+        .perform(RecyclerViewActions.actionOnItemAtPosition(6, longClick()));
+    onView(withId(R.id.trash_note))
+        .perform(click());
   }
 
 }

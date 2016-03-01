@@ -36,30 +36,30 @@ public class TrashNotesTest {
 
   @Test
   public void testRestoreFromTrash() {
-    try {
-      onView(withText("Botor"))
+      onView(withText("Is All Done"))
           .check(matches(isDisplayed()));
       onView(withId(R.id.rv))
           .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
       onView(withText("Restore"))
           .perform(click());
-      onView(withText("Botor"))
-          .check(matches(not(isDisplayed())));
-    } catch (NoMatchingViewException nmv) {
+      try {
+        onView(withText("Is All Done"))
+            .check(matches(not(isDisplayed())));
+      } catch (NoMatchingViewException nmv) {
       nmv.printStackTrace();
     }
   }
 
   @Test
   public void testDeleteIndividualItemFromTrash() {
-    try {
-      onView(withText("Scope"))
+      onView(withText("Edit the title"))
           .check(matches(isDisplayed()));
       onView(withId(R.id.rv))
           .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
       onView(withText("Delete"))
           .perform(click());
-      onView(withText("Scope"))
+    try {
+      onView(withText("Edit the title"))
           .check(matches(not(isDisplayed())));
     } catch (NoMatchingViewException nmv) {
       nmv.printStackTrace();

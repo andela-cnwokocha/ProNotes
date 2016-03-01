@@ -35,7 +35,6 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
 
   public NotesViewAdapter( List<NoteModel> noteModels) {
     notes = noteModels;
-
   }
 
   @Override
