@@ -1,7 +1,6 @@
 package com.example.andela.pronotes;
 
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -15,22 +14,24 @@ import static org.hamcrest.Matchers.*;
 
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.rule.ActivityTestRule;
+import android.test.ActivityInstrumentationTestCase2;
 
 import com.example.andela.pronotes.activities.AllNotesActivity;
-
-import org.junit.Rule;
-import org.junit.Test;
 
 /**
  * Created by Chidi on 2/18/16.
  */
-public class AllNotesTest {
+public class AllNotesTest extends ActivityInstrumentationTestCase2<AllNotesActivity> {
 
-  @Rule
-  public ActivityTestRule<AllNotesActivity> allNotesTest = new ActivityTestRule<>(AllNotesActivity.class);
+  public AllNotesTest() {
+    super(AllNotesActivity.class);
+  }
 
-  @Test
+  protected void setUp() throws Exception{
+    super.setUp();
+    getActivity();
+  }
+
   public void testClickingFloatingActionButtonOnAllNotesCreatesNote() {
     onView(withId(R.id.fabbutt))
         .perform(click());
@@ -41,33 +42,23 @@ public class AllNotesTest {
         .perform(typeText("Espresso"))
         .check(matches(withText("Espresso")));
     onView(withId(R.id.note_title))
-        .perform(typeText("Is All Done"))
-        .check(matches(withText("Is All Done")));
+        .perform(typeText("Edit the title"))
+        .check(matches(withText("Edit the title")));
     closeSoftKeyboard();
     pressBack();
   }
 
-  @Test
-  public void testClickingOnListItemToReadNote() {
+  public void testClickingOnListItemToReadNoteAndEditNote() {
     onView(withId(R.id.rv))
-        .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
     onView(withId(R.id.note_read)).check(matches(withText("Now we see how espresso works")));
-  }
-
-  @Test
-  public void testClickingFabButtonOnReadingToEditNote() {
     onView(withId(R.id.fabread))
         .perform(click());
     onView(withId(R.id.note_title))
-        .perform(typeText("All Not Done?"))
-        .check(matches(withText("All Not Done?")));
+        .perform(typeText("Is All Done"))
+        .check(matches(withText(containsString("Is All Done"))));
     ViewActions.closeSoftKeyboard();
     pressBack();
-  }
-
-  @Test
-  public void testSearchingNote() {
 
   }
-
 }
