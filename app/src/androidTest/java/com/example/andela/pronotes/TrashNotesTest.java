@@ -1,17 +1,9 @@
 package com.example.andela.pronotes;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,34 +24,30 @@ import com.example.andela.pronotes.activities.TrashListActivity;
 public class TrashNotesTest {
 
   @Rule
-  public ActivityTestRule<TrashListActivity> trashlistTest = new ActivityTestRule<>(TrashListActivity.class);
+  public ActivityTestRule<TrashListActivity> trashList = new ActivityTestRule<>(TrashListActivity.class);
 
   @Test
   public void testRestoreFromTrash() {
-      onView(withText("Is All Done"))
-          .check(matches(isDisplayed()));
-      onView(withId(R.id.rv))
-          .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-      onView(withText("Restore"))
-          .perform(click());
-      try {
-        onView(withText("Is All Done"))
-            .check(matches(not(isDisplayed())));
-      } catch (NoMatchingViewException nmv) {
-      nmv.printStackTrace();
+    onView(withId(R.id.rv))
+        .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+    onView(withText("Restore"))
+        .perform(click());
+    try {
+      onView(withText("Edit the"))
+          .check(matches(not(isDisplayed())));
+    } catch (NoMatchingViewException nmv) {
+        nmv.printStackTrace();
     }
   }
 
   @Test
   public void testDeleteIndividualItemFromTrash() {
-      onView(withText("Edit the title"))
-          .check(matches(isDisplayed()));
-      onView(withId(R.id.rv))
-          .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-      onView(withText("Delete"))
-          .perform(click());
+    onView(withId(R.id.rv))
+        .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    onView(withText("Delete"))
+        .perform(click());
     try {
-      onView(withText("Edit the title"))
+      onView(withText("Is All Done"))
           .check(matches(not(isDisplayed())));
     } catch (NoMatchingViewException nmv) {
       nmv.printStackTrace();
@@ -78,7 +66,6 @@ public class TrashNotesTest {
         .check(matches(isDisplayed()));
     onView(withText("Empty Trash"))
         .check(matches(isDisplayed()));
-
   }
 
   @Test
