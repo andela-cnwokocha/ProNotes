@@ -9,10 +9,6 @@
             android:title="Enable Autosave"
             android:summary="Save notes automatically while typing"
             android:defaultValue="false"/>
-        <!--<SwitchPreference
-            android:key="switch"
-            android:title="Enable audio"
-            android:summary="Play notification sound"/>-->
 
         <EditTextPreference
             android:key="autosaveRate"

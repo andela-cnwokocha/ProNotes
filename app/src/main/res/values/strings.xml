@@ -22,7 +22,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
@@ -105,4 +104,10 @@
     <string name="layout_list">Change Layout</string>
     <string name="search">search</string>
     <string name="trashEmpty">No note here</string>
+    <string name="trashed_notice">Trash is empty</string>
+    <string name="create_note_lock">Lock Note</string>
+    <string name="lock_text">Enter Password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
