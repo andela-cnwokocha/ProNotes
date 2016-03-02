@@ -36,7 +36,6 @@ public class ReadNoteActivityTest {
     readNoteActivity = readNoteActivityActivityController.create().get();
     readNoteActivityShadow = Shadows.shadowOf(readNoteActivity);
     fab = (FloatingActionButton) readNoteActivity.findViewById(R.id.fabread);
-
   }
 
   @Test

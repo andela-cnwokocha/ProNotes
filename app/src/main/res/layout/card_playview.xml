@@ -12,7 +12,6 @@
     cardview:cardCornerRadius="4dp"
     cardview:cardElevation="4dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
