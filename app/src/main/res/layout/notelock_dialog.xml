@@ -55,11 +55,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="OK"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:id="@+id/ok_button"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cancel"
+            android:id="@+id/cancel_button"
             android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>
