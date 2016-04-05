@@ -15,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,6 +70,10 @@ public class AllNotesActivity extends AppCompatActivity
     rcv.setHasFixedSize(true);
     pva = new NotesViewAdapter(NoteModel.fetchNotes(0));
     rcv.setAdapter(pva);
+
+    SharedPreferences general = PreferenceManager.getDefaultSharedPreferences(this);
+    String password = general.getString("password", "");
+    Log.i("password", password);
 
     addNewNote();
   }

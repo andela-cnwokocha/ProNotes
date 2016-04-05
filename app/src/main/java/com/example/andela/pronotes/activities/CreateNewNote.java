@@ -236,9 +236,9 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
 
   @Override
   public void onFinishPasswordEntry(String password) {
-    Toast.makeText(this, "I gat you - "+ password, Toast.LENGTH_LONG).show();
-    SharedPreferences preferences = getSharedPreferences("NOTE_PASSWORD", Context
-        .MODE_PRIVATE);
-    String pWord = preferences.getString("note_password", password);
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putString("password", password);
+    editor.apply();
   }
 }

@@ -116,7 +116,6 @@ public class LockNoteDialog extends DialogFragment implements EditText.OnEditorA
     NoteLockDialogListener listener = (NoteLockDialogListener) getActivity();
     listener.onFinishPasswordEntry(password.getText().toString());
     dismiss();
-    Log.i("Clickz", "Clicked");
   }
 
 }
