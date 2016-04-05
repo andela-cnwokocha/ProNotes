@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:float="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:id="@+id/note_lock"
               android:layout_width="wrap_content"
@@ -10,25 +11,57 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusable="true"/>
+<!--
+    android:focusableInTouchMode="true"
+            android:id="@+id/text_input_layout"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lock_text"
-        android:id="@+id/lock_text"/>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_layout"
+-->
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
-    <EditText
-        android:id="@+id/edittext_lock"
+        float:fletPaddingBottom="10dp"
+        float:fletTextAppearance="@style/floatlabelededittext">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:inputType="textPassword"/>
-    </android.support.design.widget.TextInputLayout>
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edittext_lock"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:password="true"
+            android:singleLine="true"
+            android:paddingRight="60dp"
+            android:hint="@string/lock_password"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-60dp"
+            style="?android:buttonBarButtonStyle"
+            android:paddingBottom="5dp"
+            android:id="@+id/password_icon"
+            android:src="@drawable/show_password"/>
+    </LinearLayout>
+    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:layout_weight="1"
+            android:id="@+id/ok_button"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/cancel_button"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.andela.pronotes.activities;
 
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,7 +46,32 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
     setContentView(R.layout.activity_create_new_note);
     setTitle("New Note");
     initialize();
+    setToolbar();
 
+    Bundle extras = getIntent().getExtras();
+    noteFromBundle(extras);
+
+    setDefaultFonts();
+    setSaveOptions();
+  }
+
+  private void setSaveOptions() {
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    autoSaveNotebook = preferences.getBoolean("autosave", false);
+
+    if (autoSaveNotebook) {
+      repeatRate = getUpdateRate();
+    }
+    setAutoSave();
+  }
+
+  private void setDefaultFonts() {
+    notebookCategory.setTypeface(EasyFonts.robotoBlack(this));
+    noteTitle.setTypeface(EasyFonts.robotoBold(this));
+    note.setTypeface(EasyFonts.robotoItalic(this));
+  }
+
+  private void setToolbar() {
     toolbar = (Toolbar) findViewById(R.id.tool_bar);
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
@@ -55,21 +81,6 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
         onBackPressed();
       }
     });
-
-    Bundle extras = getIntent().getExtras();
-    noteFromBundle(extras);
-
-    notebookCategory.setTypeface(EasyFonts.robotoBoldItalic(this));
-    noteTitle.setTypeface(EasyFonts.robotoBold(this));
-    note.setTypeface(EasyFonts.robotoItalic(this));
-
-    preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    autoSaveNotebook = preferences.getBoolean("autosave", false);
-
-    if (autoSaveNotebook) {
-      repeatRate = getUpdateRate();
-    }
-    setAutoSave();
   }
 
   @Override
@@ -219,12 +230,15 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
 
   private void showNoteLockDialog() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Note Locker");
+    LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Password Lock");
     lockNoteDialog.show(fragmentManager, "notelock_dialog");
   }
 
   @Override
   public void onFinishPasswordEntry(String password) {
     Toast.makeText(this, "I gat you - "+ password, Toast.LENGTH_LONG).show();
+    SharedPreferences preferences = getSharedPreferences("NOTE_PASSWORD", Context
+        .MODE_PRIVATE);
+    String pWord = preferences.getString("note_password", password);
   }
 }
