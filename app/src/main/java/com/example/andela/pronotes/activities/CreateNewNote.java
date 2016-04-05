@@ -219,7 +219,7 @@ public class CreateNewNote extends AppCompatActivity implements LockNoteDialog.N
 
   private void showNoteLockDialog() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Note Locker");
+    LockNoteDialog lockNoteDialog = LockNoteDialog.newInstance("Password Lock");
     lockNoteDialog.show(fragmentManager, "notelock_dialog");
   }
 
