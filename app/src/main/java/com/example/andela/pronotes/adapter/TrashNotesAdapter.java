@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +55,10 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     holder.message.setText(notes.get(position).note_text);
     holder.title.setText(notes.get(position).note_title);
     holder.date.setText(notes.get(position).currentTime);
+
+    if (!notes.get(position).password) {
+      holder.lockKey.setVisibility(View.INVISIBLE);
+    }
   }
 
   @Override
@@ -72,6 +77,7 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
     private TextView message;
     private TextView date;
     private Context context;
+    private ImageButton lockKey;
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -80,6 +86,7 @@ public class TrashNotesAdapter extends RecyclerView.Adapter<TrashNotesAdapter.Pl
       title = (TextView) itemView.findViewById(R.id.listTitle);
       message = (TextView) itemView.findViewById(R.id.listMessage);
       date = (TextView) itemView.findViewById(R.id.listDate);
+      lockKey = (ImageButton) itemView.findViewById(R.id.lock_key);
       itemView.setOnClickListener(this);
 
       FontMaker.selectFontType(title, "titleFontType", context);

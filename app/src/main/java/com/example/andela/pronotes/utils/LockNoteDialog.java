@@ -3,12 +3,14 @@ package com.example.andela.pronotes.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
+import com.example.andela.pronotes.activities.CreateNewNote;
 
 
 /**
@@ -95,7 +98,8 @@ public class LockNoteDialog extends DialogFragment implements EditText.OnEditorA
     String title = getArguments().getString("title", "Enter Password");
 
     getDialog().setTitle(title);
-    password.requestFocus();
+    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+    password.setText(pref.getString("password", "").trim());
     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
   }
 

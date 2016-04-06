@@ -37,18 +37,22 @@ public class NoteModel extends Model {
   @Column(name = "Note_text")
   public String note_text;
 
+  @Column(name = "Note_padlock")
+  public boolean password;
+
   public NoteModel(){
     super();
   }
 
   public NoteModel(String note_title, String noteBook_category, String logNote_time,
-                   int trashId, String note_text) {
+                   int trashId, String note_text, boolean password) {
     super();
     this.note_title = note_title;
     this.noteBook = noteBook_category;
     this.currentTime = logNote_time;
     this.trashId = trashId;
     this.note_text = note_text;
+    this.password = password;
   }
 
   public static void deleteRecords(int id) {
