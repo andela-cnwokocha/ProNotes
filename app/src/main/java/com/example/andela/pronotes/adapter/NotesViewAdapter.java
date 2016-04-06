@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.andela.pronotes.R;
@@ -49,6 +50,10 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     holder.message.setText(notes.get(position).note_text);
     holder.title.setText(notes.get(position).note_title);
     holder.date.setText(notes.get(position).currentTime);
+
+    if (!notes.get(position).password) {
+      holder.lock.setVisibility(View.INVISIBLE);
+    }
   }
 
   @Override
@@ -70,6 +75,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
     private Context context;
     private ActionMode actionMode;
     private long itemId;
+    private ImageButton lock;
 
     PlayViewHolder(Context context,View itemView) {
       super(itemView);
@@ -78,6 +84,7 @@ public class NotesViewAdapter extends RecyclerView.Adapter<NotesViewAdapter.Play
       title = (TextView) itemView.findViewById(R.id.listTitle);
       message = (TextView) itemView.findViewById(R.id.listMessage);
       date = (TextView) itemView.findViewById(R.id.listDate);
+      lock = (ImageButton) itemView.findViewById(R.id.lock_key);
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
 
